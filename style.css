@@ -1,35 +1,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap");
 
-h1 {
+:root {
+  --color-primary: #e6f4ff;
+  --color-secondary: #91caff;
+  --color-dark: #4096ff;
+}
+
+html {
+  background-color: var(--color-primary);
   font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+  background-color: var(--color-secondary);
+  text-align: center;
+}
+
+footer {
+  background-color: var(--color-secondary);
+  font-size: larger;
   text-align: center;
 }
 
 aside {
-  
-}
-
-article {
-  width: 80%;
-  margin: auto;
-  font-family: "Inconsolata";
-  text-align: center;
-}
-
-.ramka {
-  --border-image-real-width: 35px;
-  --border-slice-width: 100;
   box-sizing: border-box;
-  padding: calc(var(--border-image-real-width) + 1%);
-  border: 1px solid;
-  border-image-source: url('ramka.png');
-  border-image-slice: var(--border-slice-width) fill;
-  border-image-width: var(--border-slice-width);
-  border-image-repeat: stretch;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  width: var(--aside-width);
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-right: 1px solid var(--color-secondary);
+}
+
+main {
+  margin-left: var(--aside-width);
+  padding: 0 1em;
+}
+
+.main-content {
+  --aside-width: 12em;
+  position: relative;
 }
 
 ul {
   display: flex;
-  border: 1px solid black;
-  gap: 2em;
+  flex-direction: column;
+  gap: 1em;
 }
