@@ -3,7 +3,7 @@
 :root {
   --color-primary: #e6f4ff;
   --color-secondary: #91caff;
-  --color-dark: #4096ff;
+  --color-border: #4096ff;
 }
 
 html {
@@ -15,6 +15,10 @@ h1 {
   margin-top: 0;
   background-color: var(--color-secondary);
   text-align: center;
+}
+
+h2 {
+  margin-bottom: 0.5em;
 }
 
 h2:first-child {
@@ -30,7 +34,7 @@ footer {
 .image {
   float: left;
   margin: 0 2em 0.5em 0;
-  border: 1px solid var(--color-secondary);
+  border: 3px solid var(--color-secondary);
   border-radius: 3px;
 }
 
@@ -52,7 +56,6 @@ aside {
 aside, .side-bar {
   box-sizing: border-box;
   width: var(--aside-width);
-  padding: 0.5em;
   border-right: 1px solid var(--color-secondary);
 }
 
@@ -63,11 +66,61 @@ main, .main-text {
 
 .main-content {
   --aside-width: 12em;
+  padding-right: 1em;
   position: relative;
 }
 
-ul {
+nav {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 0.25em;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  width: 100%;
+  text-align: center;
+}
+
+li a {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.25em;
+  text-align: center;
+  transition: background-color 300ms;
+}
+
+li a:hover {
+  background-color: var(--color-secondary);
+}
+
+.user-input .buttons-container {
+  margin: 1.5em 0;
+  display: flex;
   gap: 1em;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.user-input .buttons-container input {
+  cursor: pointer;
+  flex: 1;
+  background-color: var(--color-secondary);
+  border-color: var(--color-border);
+  transition: filter 300ms;
+}
+
+.user-input .buttons-container input:hover {
+  filter: brightness(1.2);
 }

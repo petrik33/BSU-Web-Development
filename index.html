@@ -17,16 +17,26 @@
       <nav>
         <h3>Navigation</h3>
         <ul>
+          <li><a href="#visitors">Visitors</a></li>
           <li><a href="#top">To Top</a></li>
           <li><a href="#what">What</a></li>
           <li><a href="#where">Where</a></li>
           <li><a href="#when">When</a></li>
-          <li><a href="http://www.madison.by/">Real Maddison</a></li>
+          <li><a href="http://www.madison.by/">Maddison</a></li>
           </ul>
           </nav>
           </aside>
     <main>
       <img src="maddison.jpeg" width="340" alt="Maddison Playground" class="image">
+      <section class="user-input">
+        <h2 id="visitors">Visitors</h2>
+        <div class="buttons-container">
+          <input onclick="PromptAddVisitor()" type="button" value="Add Visitor">
+          <input onclick="PromptDeleteVisitor()" type="button" value="Delete Visitor">
+          <input onclick="AlertVisitorName()" type="button" value="Get Visitor's Name">
+          <input onclick="LogAllVisitors()" type="button" value="Get All Visitors">
+        </div>
+      </section>
       <section>
         <h2 id="what">What?</h2>
         <p>
@@ -115,6 +125,7 @@
   <footer>
     Block Layout
   </footer>
+  <script src="script.js"></script>
 </body>
 
 </html>
