@@ -1,26 +1,41 @@
-const data = {};
+function THashStorage() {
+  const self = this;
+  const data = {};
 
-function AddValue(key, value) {
-  data[key] = value;
-}
-
-function DeleteValue(key) {
-  delete data[key];
-}
-
-function GetValueInfo(key) {
-  return data[key];
-}
-
-function ListValues() {
-  let str = '';
-
-  for (let key in data) {
-    str += `${key} - ${data[key]}\n`;
+  self.DeleteValue = function (key) {
+    delete data[key];
   }
 
-  return str;
+  self.AddValue = function (key, value) {
+    data[key] = value;
+  }
+
+  self.GetValue = function (key) {
+    return data[key];
+  }
+
+  self.GetKeys = function () {
+    return Object.keys(data);
+  }
+
+  self.ListValues = function () {
+    let str = '';
+
+    for (let key in data) {
+      str += `${key} - ${this.GetValue(key)}\n`;
+    }
+
+    return str;
+  }
+
+  self.Reset = function () {
+    for (const key in data) {
+      DeleteValue(key);
+    }
+  }
 }
+
+const Storage = new THashStorage();
 
 const actionCancelledStr = 'Action cancelled';
 
@@ -39,7 +54,7 @@ function PromptAddVisitor() {
     return;
   }
 
-  if (data[login]) {
+  if (Storage.GetValue(login)) {
     const override = confirm('This login already exists. Would you like to override the existing name?');
 
     if (!override) {
@@ -50,7 +65,7 @@ function PromptAddVisitor() {
 
   alert('Sucessful!');
 
-  AddValue(login, name);
+  Storage.AddValue(login, name);
 }
 
 function PromptDeleteVisitor() {
@@ -61,7 +76,7 @@ function PromptDeleteVisitor() {
     return;
   }
 
-  if (data[login]) {
+  if (Storage.GetValue(login)) {
     const confirmed = confirm('Are you sure you want to delete this visitor?');
 
     if (!confirmed) {
@@ -69,7 +84,7 @@ function PromptDeleteVisitor() {
       return;
     }
 
-    DeleteValue(login);
+    Storage.DeleteValue(login);
     alert('Sucessful!');
     return;
   }
@@ -85,8 +100,8 @@ function AlertVisitorName() {
     return;
   }
 
-  if (data[login]) {
-    alert(GetValueInfo(login));
+  if (Storage.GetValue(login)) {
+    alert(Storage.GetValue(login));
     return;
   }
 
@@ -94,7 +109,7 @@ function AlertVisitorName() {
 }
 
 function LogAllVisitors() {
-  const log = ListValues();
+  const log = Storage.ListValues();
 
   if (log.length === 0) {
     console.log('No registered visitors yet');
