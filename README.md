@@ -4,7 +4,7 @@
 
 ### Вариант 12: Игровая комната в торговом центре
 
-Deploy: https://petrik33.github.io/BSU-Web-Lab1/
+Deploy: https://petrik33.github.io/BSU-Web-Lab1/page1.html
 
 1\. На основе предметной области согласно своего варианта создать проект, который будет состоять из двух HTML­страниц.
 
