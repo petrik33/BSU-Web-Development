@@ -4,7 +4,7 @@
 
 ### Вариант 12: Игровая комната в торговом центре
 
-Deploy: https://petrik33.github.io/BSU-Web-Lab3/
+Deploy: https://petrik33.github.io/BSU-Web-Lab4/
 
 Модифицировать проект, созданный в [лабораторной работе №3](https://github.com/petrik33/BSU-Web-Lab3), таким образом, чтобы использовался ООП подход.
 
