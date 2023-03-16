@@ -1,7 +1,54 @@
-.review-form {
-  width: 50%;
+.review {
+  width: 20em;
+  height: min-content;
   margin: auto;
+  margin-top: 2em;
   display: flex;
   flex-flow: column nowrap;
   gap: 1em;
+}
+
+.review > * {
+  flex: 1;
+}
+
+label input {
+  margin-left: 1em;
+}
+
+.review_name, .review_email {
+  display: block;
+  width: 18em;
+}
+
+.review_rating {
+  width: 2.5em;
+}
+
+.review__terms_radio {
+  margin-inline: 1em;
+}
+
+.review_submit {
+  width: 5em;
+}
+
+.errors__list {
+  width: 30em;
+  padding: 0;
+  margin: auto;
+  margin-top: 2em;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0;
+}
+
+.errors__list_item {
+  height: 2em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  background-color: red;
 }
