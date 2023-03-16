@@ -2,14 +2,6 @@
 // Inputs Creation
 // -------------------
 
-const setFields = (fields, formName) => {
-  const form = document.forms.namedItem(formName);
-  for (const field of fields) {
-    const elem = fieldCreateElement(field, form);
-    form.appendChild(elem);
-  }
-}
-
 const formFields = [
   {
     label: 'Enter your name:',
@@ -75,6 +67,14 @@ const formFields = [
   }
 ];
 
+const setFields = (fields, formName) => {
+  const form = document.forms.namedItem(formName);
+  for (const field of fields) {
+    const elem = fieldCreateElement(field, form);
+    form.appendChild(elem);
+  }
+}
+
 const fieldCreateElement = (field, form) => {
   if (field.fieldset) {
     return fieldCreateFieldset(field.fieldset, form);
@@ -88,6 +88,7 @@ const fieldCreateElement = (field, form) => {
 
   if (field.attributes) {
     const input = fieldCreateInput(field);
+    input.form = form;
 
     if (!elem) {
       return input;
@@ -128,18 +129,9 @@ const fieldsetCreateLegend = (fieldset) => {
   return legend;
 }
 
-const fieldCreateInput = (
-  field, form, container = form
-) => {
-  let elem = document.createElement('input');
+const fieldCreateInput = (field) => {
+  const elem = document.createElement('input');
 
-  if (field.className) {
-    const blockclassName = container.classNameList[0];
-    const elemclassName = `${blockclassName}_${field.className}`;
-    elem.classNameList.add(elemclassName);
-  }
-
-  elem.form = form;
   inputAssignAttributes(elem, field.attributes);
 
   return elem;
@@ -155,31 +147,8 @@ const fieldCreateLabel = (field) => {
   const label = document.createElement('label');
 
   label.innerHTML = field.label;
-  label.for = fieldGetFor(field);
 
   return label;
-}
-
-const fieldGetFor = (field) => {
-  if (field.id) {
-    return field.id;
-  }
-
-  if (field.name) {
-    return field.name;
-  }
-
-  if (!field.attributes) {
-    return '';
-  }
-
-  if (field.attributes.id) {
-    return field.attributes.id;
-  }
-
-  if (field.attributes.name) {
-    return field.attributes.name;
-  }
 }
 
 // -------------------
