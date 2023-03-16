@@ -1,0 +1,4 @@
+.review-form {
+  display: flexbox;
+  flex-flow: column nowrap;
+}
