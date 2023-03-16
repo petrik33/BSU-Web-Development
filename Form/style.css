@@ -3,11 +3,20 @@
   text-align: center;
 }
 
+.header {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
 .review {
   width: 20em;
   height: min-content;
+  padding: 0.25em;
   margin: auto;
-  margin-top: 2em;
+  border-width: 2px;
+  border-style: groove;
+  border-color: rgb(192, 192, 192);
+  border-image: initial;
   display: flex;
   flex-flow: column nowrap;
   gap: 1em;
@@ -28,6 +37,12 @@ label input {
 
 .review_rating {
   width: 2.5em;
+}
+
+.review__terms {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
 }
 
 .review__terms_radio {
