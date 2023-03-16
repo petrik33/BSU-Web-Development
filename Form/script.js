@@ -38,35 +38,31 @@ const formFields = [
     }
   },
   {
-    label: 'Agree with terms and conditions',
-    name: 'terms',
-    class: '_terms',
-    // validator: (value) => {
-    //   if (value) {
-    //     return null;
-    //   }
-    //   return 'you have to agree with terms and conditions';
-    // }
-  },
-  {
-    label: 'Yes',
-    attributes: {
-      type: 'radio',
+    fieldset: {
+      legend: 'Agree with terms and conditions',
       name: 'terms',
-      id: 'yes',
-      value: true,
-    },
-    class: '_terms_radio',
-  },
-  {
-    label: 'No',
-    attributes: {
-      type: 'radio',
-      name: 'terms',
-      id: 'no',
-      value: false,
-    },
-    class: '_terms_radio',
+      class: 'terms',
+      fields: [
+        {
+          label: 'Yes',
+          attributes: {
+            type: 'radio',
+            id: 'yes',
+            value: true,
+          },
+          class: 'radio'
+        },
+        {
+          label: 'No',
+          attributes: {
+            type: 'radio',
+            id: 'no',
+            value: false,
+          },
+          class: 'radio'
+        }
+      ]
+    }
     // validator: (value) => {
     //   if (value) {
     //     return null;
@@ -82,29 +78,69 @@ const formFields = [
   }
 ];
 
-const errorEmpty = (name) => `${name} field is empty`;
-const errorType = (name, type) => `${name} should be ${type}`;
-const errorRange = (name, min, max) => `${name} should be in range from ${min} to ${max}`;
+const errorEmpty = (
+  name
+) => `${name} field is empty`;
 
-const setFormFields = (fields, form) => {
+const errorType = (
+  name, type
+) => `${name} should be ${type}`;
+
+const errorRange = (
+  name, min, max
+) => `${name} should be in range from ${min} to ${max}`;
+
+const setFields = (fields, form, container = form) => {
   for (const field of fields) {
     if (field.label) {
       const label = fieldCreateLabel(field);
-      form.appendChild(label);
+      container.appendChild(label);
     }
 
     if (field.attributes) {
       const elem = fieldCreateInput(field, form);
-      form.appendChild(elem);
+      container.appendChild(elem);
+    }
+
+    if (field.fieldset) {
+      const elem = fieldCreateFieldset(field.fieldset, form);
+      container.appendChild(elem);
     }
   }
 }
 
-const fieldCreateInput = (field, form) => {
+const fieldCreateFieldset = (fieldset, form) => {
+  const elem = document.createElement('fieldset');
+
+  if (fieldset.legend) {
+    const legend = document.createElement('legend');
+    legend.innerHTML = fieldset.legend;
+    elem.appendChild(legend);
+  }
+
+  if (fieldset.class) {
+    const blockClass = form.classList[0];
+    const fieldsetClass = `${blockClass}__${fieldset.class}`;
+    elem.classList.add(fieldsetClass);
+  }
+
+  for (const field of fieldset.fields) {
+    field.attributes.name = fieldset.name;
+  }
+
+  elem.form = form;
+  setFields(fieldset.fields, form, elem);
+
+  return elem;
+}
+
+const fieldCreateInput = (
+  field, form, container = form
+) => {
   let elem = document.createElement('input');
 
   if (field.class) {
-    const blockClass = form.classList[0];
+    const blockClass = container.classList[0];
     const elemClass = `${blockClass}_${field.class}`;
     elem.classList.add(elemClass);
   }
@@ -153,4 +189,4 @@ const fieldGetFor = (field) => {
 }
 
 const form = document.getElementById('review');
-setFormFields(formFields, form);
+setFields(formFields, form);
