@@ -210,7 +210,7 @@ const validateRating = (value) => {
 }
 
 const validateTerms = (value) => {
-  if (value == 'false') {
+  if (value !== 'true') {
     return 'you have to agree with terms and conditions to submit your review';
   }
 
@@ -232,6 +232,7 @@ const reviewValidate = () => {
 
   for (const key in validator) {
     const input = inputs.namedItem(key);
+    console.log(`${input.value}\n`);
 
     const errorMessage = validator[key](input.value);
 
