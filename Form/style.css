@@ -9,9 +9,9 @@
 }
 
 .review {
-  width: 20em;
+  width: 24em;
   height: min-content;
-  padding: 0.25em;
+  padding: 0.5em;
   margin: auto;
   border-width: 2px;
   border-style: groove;
