@@ -31,6 +31,14 @@ const formFields = [
     },
   },
   {
+    label: 'Are you satisfied with security of playground?',
+    attributes: {
+      type: 'checkbox',
+      name: 'security',
+      className: 'review_security',
+    },
+  },
+  {
     fieldset: {
       legend: 'Agree with terms and conditions',
       className: 'review__terms',
