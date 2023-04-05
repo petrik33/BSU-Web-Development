@@ -42,9 +42,14 @@ const makeMenuItem = (item) => {
     listItemElem.append(item.name);
     listItemElem.onclick = (event) => {
       if (event.target !== event.currentTarget) return;
-      if (hideMenu(listItemElem)) return;
-      showMenu(item.submenu, listItemElem)
+      if (hideMenu(listItemElem)) {
+        listItemElem.classList.remove('opened');
+        return;
+      }
+      showMenu(item.submenu, listItemElem);
+      listItemElem.classList.add('opened');
     };
+    listItemElem.classList.add('has-submenu');
   }
   if (item.url) {
     const anchor = makeAnchor(item.name, item.url);
