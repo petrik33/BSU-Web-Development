@@ -1,0 +1,12 @@
+@import url('../Styles/variables.css');
+
+.menu-item {
+  cursor: pointer;
+  background-color: var(--color-secondary);
+  border-color: var(--color-border);
+  transition: filter 300ms;
+}
+
+.menu-item:hover {
+  filter: brightness(1.2);
+}
