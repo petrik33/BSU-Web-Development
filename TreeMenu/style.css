@@ -1,0 +1,62 @@
+@import url('../Styles/variables.css');
+
+html {
+  background-color: var(--color-primary);
+  font-family: "Courier New", Courier, monospace;
+}
+
+nav {
+  width: 50%;
+  margin: auto;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding-inline: 2em;
+  padding-block: 1em;
+}
+
+.menu-item {
+  cursor: pointer;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  transition: filter 300ms;
+  position: relative;
+}
+
+.menu-item > a {
+  display: inline-block;
+  width: 100%;
+}
+
+.menu-item:hover {
+  filter: brightness(1.2);
+}
+
+.menu-item.has-submenu::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 5px solid black;
+  border-bottom: 5px solid transparent;
+}
+
+.menu-item.has-submenu.opened::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}

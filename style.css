@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap");
 
-:root {
-  --color-primary: #e6f4ff;
-  --color-secondary: #91caff;
-  --color-border: #4096ff;
-}
+@import url('./Styles/variables.css');
 
 html {
   background-color: var(--color-primary);
