@@ -6,7 +6,7 @@ const port = 3000;
 app.use(express.static(`${__dirname}/src`));
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/src/pages/home/index.html`);
+  res.sendFile(`${__dirname}/src/index.html`);
 });
 
 app.get('/data', (req, res) => {
@@ -14,5 +14,5 @@ app.get('/data', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`App running on http://localhost:${port}`);
 });
