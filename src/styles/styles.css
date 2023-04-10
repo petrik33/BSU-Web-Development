@@ -90,6 +90,15 @@ li {
   text-align: center;
 }
 
+ul.features li {
+  padding-block: 0.5em;
+}
+
+ul.features li:nth-child(even) {
+  background-color: var(--color-secondary-light);
+}
+
+
 li a {
   display: inline-block;
   box-sizing: border-box;
