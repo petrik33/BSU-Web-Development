@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap");
 
-@import url('../../styles/variables.css');
+@import url('/styles/variables.css');
 
 html {
   background-color: var(--color-primary);
