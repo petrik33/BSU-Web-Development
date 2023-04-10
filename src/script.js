@@ -4,10 +4,13 @@ const homePageHtml = `
     <p>Atom Playground is a fun and interactive online platform for kids to learn about the amazing world of atoms and molecules. Our tools and simulations make it easy for kids to explore and discover the building blocks of matter.</p>
     <p>Whether you're a curious kid or a parent looking for a fun and educational activity, Atom Playground is the perfect place to learn and play.</p>
     <h3>Our Features</h3>
-    <ul>
+    <ul class="features">
       <li>Engaging simulations and games that make learning about atoms and molecules fun</li>
       <li>Interactive tutorials that guide kids through the basics of chemistry</li>
       <li>A safe and friendly community of young learners and expert educators</li>
+      <li>Exciting challenges and activities to help reinforce learning</li>
+      <li>Fun badges and rewards to keep you motivated</li>
+      <li>A rich library of resources to expand your knowledge</li>
       <li>And much more!</li>
     </ul>
     <p>Join Atom Playground today and start your journey into the amazing world of atoms and molecules!</p>
