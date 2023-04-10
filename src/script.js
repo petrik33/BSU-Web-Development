@@ -59,14 +59,29 @@ const changePage = (page) => {
   }
 }
 
+const storeCurrentPage = () => {
+  localStorage.setItem('currentPage', window.location.hash);
+}
+
+const loadCurrentPage = () => {
+  return localStorage.getItem('currentPage');
+}
+
 const changeUrlHash = (hash) => {
   location.hash = hash;
 }
 
 const hashChangeHandler = () => {
-  const UrlHash = window.location.hash;
+  let UrlHash = window.location.hash;
+  if (!UrlHash) {
+    UrlHash = loadCurrentPage();
+    if (!UrlHash) {
+      UrlHash = "#Home";
+    }
+  }
   const pageKey = UrlHash.substring(1);
   changePage(pagesHash[pageKey]);
+  storeCurrentPage();
 }
 
 const makePagesNavItems = (pages) => {
@@ -93,5 +108,4 @@ const pagesHash = {
 
 window.onhashchange = hashChangeHandler;
 makePagesNavItems(pagesHash);
-changeUrlHash("#Home");
-
+hashChangeHandler();
