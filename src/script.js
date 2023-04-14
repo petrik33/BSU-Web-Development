@@ -30,6 +30,7 @@ const subjectPageHtml = `
       <tbody id="table-body">
       </tbody>
     </table>
+    <a href="/data" class='download-button' >Download</a>
   </div>
 `;
 
