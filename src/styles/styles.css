@@ -99,7 +99,7 @@ ul.features li:nth-child(even) {
 }
 
 
-li a {
+li a, .download-button {
   display: inline-block;
   box-sizing: border-box;
   width: 100%;
@@ -108,7 +108,13 @@ li a {
   transition: background-color 300ms;
 }
 
-li a:hover {
+.download-button {
+  text-align: left;
+  margin-top: 0.25em;
+  padding-block: 0.5em;
+}
+
+li a:hover, .download-button:hover {
   background-color: var(--color-secondary);
 }
 
