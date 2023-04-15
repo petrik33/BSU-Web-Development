@@ -2,13 +2,9 @@
 
 ## Формирование меню в JavaScript. Хранение данных на клиенте
 
-Вариант 12: Игровая комната в торговом центре
-
-Deploy: <https://petrik33.github.io/BSU-Web-Lab6/>
-
 ### Task1
 
-В проект [лабораторной работы №2](https://github.com/petrik33/BSU-Web-Lab2)
+В проект [лабораторной работы №2](https://github.com/petrik33/BSU-Web-Development/tree/main/Lab%202.%20Table%20and%20Block%20Layout)
 добавить html-страницу (переход на нее должен выполняться по ссылке из меню главной страницы), на которой будет
 формироваться горизонтальное меню с выпадающими при нажатии кнопки мыши
 подменю.
@@ -61,7 +57,7 @@ function ShowMenu(MenuItemsA,ParentElem)
 
 ### Task2
 
-В проект, созданный в [лабораторной работе №4](https://github.com/petrik33/BSU-Web-Lab4), добавить:
+В проект, созданный в [лабораторной работе №4](https://github.com/petrik33/BSU-Web-Development/tree/main/Lab%204.%20OOP%20in%20JS), добавить:
 класс `TLocalStorage` для хранения информации об объектах в локальном хранилище
 (`window.localStorage`)
 
