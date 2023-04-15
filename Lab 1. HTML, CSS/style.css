@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap");
+
+h1 {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+article {
+  width: 80%;
+  margin: auto;
+  font-family: "Inconsolata";
+  text-align: center;
+}
+
+.ramka {
+  --border-image-real-width: 35px;
+  --border-slice-width: 100;
+  box-sizing: border-box;
+  padding: calc(var(--border-image-real-width) + 1%);
+  border: 1px solid;
+  border-image-source: url('ramka.png');
+  border-image-slice: var(--border-slice-width) fill;
+  border-image-width: var(--border-slice-width);
+  border-image-repeat: stretch;
+}
+
+ul {
+  display: flex;
+  border: 1px solid black;
+  gap: 2em;
+}
