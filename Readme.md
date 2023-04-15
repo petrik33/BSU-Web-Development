@@ -2,10 +2,6 @@
 
 ## Динамические формы в JavaScript. Валидация
 
-*Вариант 12: Игровая комната в торговом центре*
-
-Deploy: https://petrik33.github.io/BSU-Web-Lab5/
-
 ### Task1
 
 В проект [лабораторной работы №2](https://github.com/petrik33/BSU-Web-Lab2)
