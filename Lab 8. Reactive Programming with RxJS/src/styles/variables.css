@@ -1,0 +1,7 @@
+:root {
+  --color-primary: #e6f4ff;
+  --color-secondary: #91caff;
+  --color-border: #4096ff;
+  --color-secondary-light: #b5e1ff; /* lighter shade of secondary */
+  --color-tertiary: #67bfff; /* darker shade of primary */
+}
