@@ -1,16 +1,23 @@
-const express = require('express');
-const path = require('path');
-const app = express();
 const port = 3000;
 
-app.use(express.static(`${__dirname}/src`));
+const express = require('express');
+const app = express();
+
+app.use((req, res, next) => {
+  if (req.url.endsWith('.css')) {
+    res.setHeader('Content-Type', 'text/css');
+  }
+  next();
+});
+
+app.use(express.static('dist'));
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/src/index.html`);
+  res.sendFile(`${__dirname}/dist/index.html`);
 });
 
 app.get('/data', (req, res) => {
-  res.download(`${__dirname}/src/data/visitors.json`);
+  res.download(`${__dirname}/data/data.json`);
 });
 
 app.listen(port, () => {

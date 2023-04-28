@@ -1,3 +1,7 @@
+import './styles/styles.css';
+import './styles/variables.css';
+import './data/data.json';
+
 const homePageHtml = `
   <div>
     <h2>Welcome to Atom Playground!</h2>
