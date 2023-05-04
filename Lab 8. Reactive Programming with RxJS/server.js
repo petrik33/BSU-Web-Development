@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data', (req, res) => {
-  res.sendFile(`${__dirname}/data/visitors.json`);
+  res.download(`${__dirname}/data/visitors.json`);
 });
 
 app.listen(port, () => {
