@@ -3,6 +3,11 @@
 @import url('./variables.css');
 
 html {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
   background-color: var(--color-primary);
   font-family: "Courier New", Courier, monospace;
 }
@@ -63,6 +68,7 @@ main, .main-text {
 }
 
 .main-content {
+  min-height: 24em;
   --aside-width: 12em;
   padding-right: 1em;
   position: relative;
@@ -109,6 +115,7 @@ li a, button {
 }
 
 button {
+  width: 80%;
   text-align: left;
   margin-top: 0.25em;
   padding-block: 0.5em;
