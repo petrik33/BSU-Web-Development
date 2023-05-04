@@ -3,7 +3,10 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
     "@webpack-cli/generators": "^3.0.2",
+    "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "express": "^4.18.2",
     "file-loader": "^6.2.0",
@@ -20,6 +23,7 @@
   "description": "My webpack project",
   "name": "my-webpack-project",
   "scripts": {
+    "run": "node server.js",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
