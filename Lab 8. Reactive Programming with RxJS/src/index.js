@@ -8,13 +8,18 @@ const showDataButton = document.getElementById('show-data');
 const deleteDataButton = document.getElementById('delete-data');
 const dataContainer = document.getElementById('data-container');
 
-const showData$ = fromEvent(showDataButton, 'click');
-showData$.subscribe(() => {
+const showData$ = fromEvent(showDataButton, 'click').pipe(
+  switchMap(() => ajax.getJSON('../data')),
+  map(data => Object.entries(data)),
+);
+
+showData$.subscribe(dataEntries => {
   dataContainer.innerHTML = '';
-  from(ajax.getJSON('../data')).subscribe(data => {
-    loadData(data);
+  dataEntries.forEach(([key, value]) => {
+    const row = loadVisitor(key, value);
+    dataContainer.appendChild(row);
   });
-})
+});
 
 const deleteData$ = fromEvent(deleteDataButton, 'click');
 deleteData$.subscribe(() => { deleteLastDataRow(); });
