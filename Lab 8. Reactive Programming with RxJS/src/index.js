@@ -20,7 +20,7 @@ const loadVisitor = (login, name) => {
   return row;
 }
 
-const data$ = from(ajax.getJSON('/data'));
+const data$ = from(ajax.getJSON('../data'));
 
 const showData$ = fromEvent(showDataButton, 'click').pipe(
   switchMap(() => data$),
