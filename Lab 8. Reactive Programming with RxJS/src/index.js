@@ -16,7 +16,7 @@ showData$.subscribe(() => {
 })
 
 const deleteData$ = fromEvent(deleteDataButton, 'click');
-deleteData$.subscribe(deleteLastDataRow);
+deleteData$.subscribe(() => { deleteLastDataRow(); });
 
 const loadData = (data) => {
   for (const key in data) {
