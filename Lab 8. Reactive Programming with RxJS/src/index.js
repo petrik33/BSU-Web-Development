@@ -10,6 +10,7 @@ const dataContainer = document.getElementById('data-container');
 
 const showData$ = fromEvent(showDataButton, 'click');
 showData$.subscribe(() => {
+  dataContainer.innerHTML = '';
   from(ajax.getJSON('../data')).subscribe(data => {
     loadData(data);
   });
