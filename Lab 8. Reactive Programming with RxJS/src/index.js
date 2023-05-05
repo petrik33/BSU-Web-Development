@@ -1,7 +1,7 @@
 import './styles/styles.css';
 import './styles/variables.css';
 
-import { fromEvent, from } from 'rxjs';
+import { fromEvent, switchMap, map } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
 const showDataButton = document.getElementById('show-data');
@@ -23,13 +23,6 @@ showData$.subscribe(dataEntries => {
 
 const deleteData$ = fromEvent(deleteDataButton, 'click');
 deleteData$.subscribe(() => { deleteLastDataRow(); });
-
-const loadData = (data) => {
-  for (const key in data) {
-    const row = loadVisitor(key, data[key]);
-    dataContainer.append(row);
-  }
-}
 
 const loadVisitor = (login, name) => {
   const row = document.createElement('tr');
