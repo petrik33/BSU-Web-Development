@@ -1,0 +1,36 @@
+/* toy-details.component.css */
+.container {
+  margin-top: 30px;
+}
+
+.card {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-color);
+}
