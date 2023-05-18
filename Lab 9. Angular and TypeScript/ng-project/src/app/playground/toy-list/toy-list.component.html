@@ -1,1 +1,12 @@
-<p>toy-list works!</p>
+<div class="container">
+  <h2 class="mt-5 mb-3">Toy List</h2>
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let toy of toys"
+      (click)="showToyDetails(toy)"
+    >
+      {{ toy.description }}
+    </li>
+  </ul>
+</div>
