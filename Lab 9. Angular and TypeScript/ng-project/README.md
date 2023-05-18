@@ -50,5 +50,6 @@ ng generate module имя_модуля-routing  --flat --module= имя_моду
 
 ### Report
 
-![App screenshot](screen.png)
+![Toy Center](../Screenshot%20from%202023-05-18%2023-53-58.png)
 
+![Toy Details](../Screenshot%20from%202023-05-18%2023-54-37.png)
