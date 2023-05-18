@@ -1,1 +1,13 @@
-<p>toy-details works!</p>
+<div class="container">
+  <h2 class="mt-5 mb-3">Toy Details</h2>
+  <div *ngIf="toy" class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ toy.description }}</h5>
+      <p class="card-text">Age: {{ toy.age }}</p>
+      <a href="#" class="btn btn-primary">Buy Now</a>
+    </div>
+  </div>
+  <div *ngIf="!toy" class="alert alert-warning mt-3">
+    Warning: Unknown toy selected.
+  </div>
+</div>
