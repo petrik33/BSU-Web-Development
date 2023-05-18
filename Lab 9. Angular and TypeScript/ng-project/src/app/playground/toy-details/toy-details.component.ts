@@ -9,7 +9,7 @@ import { PlaygroundService } from '../playground.service';
   styleUrls: ['./toy-details.component.css']
 })
 export class ToyDetailsComponent implements OnInit {
-  toy: Toy | null = null;
+  toy: Toy | undefined;
 
   constructor(private playgroundService: PlaygroundService, private route: ActivatedRoute) { }
 

@@ -10,11 +10,8 @@ export class PlaygroundService {
     return Toys;
   }
 
-  getToyData(id: number): Toy | null {
-    if (id < 0 || id >= Toys.length) {
-      return null;
-    }
-    return Toys[id];
+  getToyData(id: number) {
+    return Toys.find(toy => toy.id === id);
   }
 
   constructor() { }
