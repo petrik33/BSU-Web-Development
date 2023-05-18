@@ -1,27 +1,54 @@
-# NgProject
+# Лабораторная работа №9
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
+## TypeScript, Angular
 
-## Development server
+### Specification 12. Игровая комната в торговом центре
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Создать модуль (module) с названием `ToyRoom`. В этом модуле разместить компоненты (component) `ToyCenter`, `ToyList`, `ToyDetails`. Добавить навигацию: при открытии проекта на место элемента `<router-outlet>` отображается компонент `ToyCenter`, для которого дочерним подгружается компонент ToyList. При нажатии на один из элементов списка ToyList подгружается соответствующий компонент `ToyDetails`. 
+Список игрушек хранить в приложении в файле mock-toy-list.ts в виде массива: `Toys [] = [ { id: 1, description: 'ball', age: '3' }, … ]`
 
-## Code scaffolding
+На основе предметной области [лабораторной работы №1](https://github.com/petrik33/BSU-Web-Development/tree/main/Lab%201.%20HTML%2C%20CSS) (Specification)
+спроектировать Angular приложение. 
+Сгенерировать шаблон-заготовку приложения можно при помощи команды angular cli:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+ng new <имя_приложения>
+```
 
-## Build
+Корневой компонент приложения - app.component (генерируется автоматически при создании приложения и размещается в папке src\app). В app.component.html (html шаблоне корневого компонента) разместить bootstrap компонент jumbotron, с описанием функционала приложения (необходимо также добавить bootstrap зависимость в файл package.json).
+В папке проекта src\app сгенерировать модуль с названием согласно варианта задания. Это можно сделать командой angular cli:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+ng generate module <имя_модуля> --module=app
+```
 
-## Running unit tests
+Перейти в папку src\app\имя_модуля и сгенерировать компоненты согласно варианта задания:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+ng generate component <имя_компонента>
+```
 
-## Running end-to-end tests
+Для взаимодействия с данными в папке src\app\имя_модуля создать папку services и в ней сгенерировать сервис при помощи команды:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+ng generate service <имя_модуля>
+```
 
-## Further help
+Для осуществления маршрутизации в приложении в корень проекта (на одном уровне с app.component) добавить модуль AppRoutingModule. Это можно сделать командой:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng generate module app-routing  --flat --module=app
+```
+
+В app.component.html разместить директиву `<router-outlet> </router-outlet>` (На место элемента `<router-outlet>` будет рендериться компонент, выбранный для обработки запроса.).
+
+Для обработки дочерних маршрутов в папке src\app\имя_модуля добавить модуль имя_модуляRoutingModule командой:
+
+```bash
+ng generate module имя_модуля-routing  --flat --module= имя_модуля
+```
+
+### Report
+
+![App screenshot](screen.png)
+
