@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomJumbotronComponent } from './custom-jumbotron/custom-jumbotron.component';
+import { PlaygroundModule } from './playground/playground.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { CustomJumbotronComponent } from './custom-jumbotron/custom-jumbotron.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PlaygroundModule
   ],
   providers: [],
   bootstrap: [AppComponent]
