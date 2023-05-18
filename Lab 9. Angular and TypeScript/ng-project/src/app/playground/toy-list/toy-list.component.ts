@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Toys, Toy } from 'src/data/mock-toy-list';
+import { Toy } from 'src/data/mock-toy-list';
 import { Router } from '@angular/router';
+import { PlaygroundService } from '../playground.service';
 
 @Component({
   selector: 'app-toy-list',
@@ -8,8 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./toy-list.component.css']
 })
 export class ToyListComponent {
-  toys = Toys.slice();
-  constructor(private router: Router) { }
+  toys: Toy[] = [];
+  constructor(private playgroundService: PlaygroundService, private router: Router) { }
+
+  ngOnInit() {
+    this.toys = this.playgroundService.getToys();
+  }
 
   showToyDetails(toy: Toy): void {
     this.router.navigate(['/playground/toy-details', toy.id]);

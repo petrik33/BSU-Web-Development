@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Toy, Toys } from 'src/data/mock-toy-list';
+import { Toy } from 'src/data/mock-toy-list';
+import { PlaygroundService } from '../playground.service';
 
 @Component({
   selector: 'app-toy-details',
@@ -10,13 +11,10 @@ import { Toy, Toys } from 'src/data/mock-toy-list';
 export class ToyDetailsComponent implements OnInit {
   toy: Toy | null = null;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private playgroundService: PlaygroundService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const toyId = this.route.snapshot.paramMap.get('id');
-    const toyData = Toys.find((toy) => toy.id === Number(toyId))
-    if (toyData) {
-      this.toy = toyData;
-    }
+    const toyId = +this.route.snapshot.paramMap.get('id')!
+    this.toy = this.playgroundService.getToyData(toyId);
   }
 }
