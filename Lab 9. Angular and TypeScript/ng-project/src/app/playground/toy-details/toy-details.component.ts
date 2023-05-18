@@ -14,10 +14,6 @@ export class ToyDetailsComponent implements OnInit {
 
   ngOnInit() {
     const toyId = this.route.snapshot.paramMap.get('id');
-    // Fetch the toy data based on the toyId
-    // Replace this with your actual code to fetch the toy data
-
-    // Example code to fetch toy data from mock-toy-list
     const toyData = Toys.find((toy) => toy.id === Number(toyId))
     if (toyData) {
       this.toy = toyData;
