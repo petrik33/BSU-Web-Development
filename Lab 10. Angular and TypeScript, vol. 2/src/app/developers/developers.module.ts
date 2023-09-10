@@ -16,6 +16,9 @@ import { DevelopersRoutingModule } from './developers-routing.module';
     DeveloperListComponent,
     DeveloperDetailsComponent,
     DeveloperCenterComponent
+  ],
+  exports: [
+    DeveloperCenterComponent
   ]
 })
 export class DevelopersModule { }
