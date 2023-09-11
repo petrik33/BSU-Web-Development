@@ -9,14 +9,13 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./developer-details.component.css']
 })
 export class DeveloperDetailsComponent {
-  developer$: Observable<Developer | null> = of(null);
-  id: number = 0;
+  developer: Developer | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: DevelopersService) { }
+  constructor(private service: DevelopersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.developer$ = this.route.paramMap.pipe(
-      switchMap((value: ParamMap, index: number) => {
+    this.route.paramMap.pipe(
+      switchMap((value: ParamMap) => {
         const id = value.get('id');
 
         if (id) {
@@ -28,6 +27,8 @@ export class DeveloperDetailsComponent {
 
         return of(null);
       })
-    )
+    ).subscribe((developer) => {
+      this.developer = developer
+    });
   }
 }
