@@ -4,12 +4,12 @@ import { DeveloperCenterComponent } from './developers/developer-center/develope
 
 const routes: Routes = [
   { path: '', redirectTo: 'center', pathMatch: 'full' },
-  { path: 'center', component: DeveloperCenterComponent },
+  { path: 'center', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

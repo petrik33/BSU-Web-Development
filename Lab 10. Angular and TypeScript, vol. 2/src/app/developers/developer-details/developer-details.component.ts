@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 export class DeveloperDetailsComponent {
   developer: Developer | null = null;
 
-  constructor(private service: DevelopersService, private route: ActivatedRoute) { }
+  constructor(public service: DevelopersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(

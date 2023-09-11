@@ -1,10 +1,19 @@
-<div *ngIf="!developer">
-    <p>Loading...</p>
+<div *ngIf="!developer" class="p-5">
+    <h3>Loading...</h3>
+    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="100" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress-bar" style="width: 50%"></div>
+    </div>
+    <div class="alert alert-primary my-5">
+        This loading is fake... Just return to previous page
+    </div>
 </div>
-<div *ngIf="developer" class="card">
+<div *ngIf="developer" class="card mx-auto my-4" style="width: 24rem;">
     <div class="card-body">
-        <h3 class="card-title">{{developer.name}}</h3>
-        <h4 class="card-subtitle">{{developer.qualification}}</h4>
-        <p class="card-text">Salary: {{developer.salary}}k $/year</p>
+        <h4 class="card-title text-center">{{developer.name}}</h4>
+        <h6 class="card-subtitle text-center">{{developer.qualification}}</h6>
+        <p class="card-text text-center my-2">Salary: {{developer.salary}}k/year</p>
+        <a class="card-link" routerLink="../../">Back</a>
+        <a class="card-link" [routerLink]="['../', this.service.getNextDeveloperId(developer.id)]">Next</a>
     </div>
 </div>

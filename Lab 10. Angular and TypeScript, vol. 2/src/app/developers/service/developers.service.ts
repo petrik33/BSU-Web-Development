@@ -27,4 +27,18 @@ export class DevelopersService {
     }
     return dev;
   }
+
+  getNextDeveloperId(id : number) {
+    let idx = this.developers.findIndex(d => d.id == id);
+
+    if (idx == -1) {
+      return -1;
+    }
+
+    if (idx == this.developers.length - 1) {
+      return this.developers[0].id;
+    }
+
+    return this.developers[idx + 1].id;
+  }
 }

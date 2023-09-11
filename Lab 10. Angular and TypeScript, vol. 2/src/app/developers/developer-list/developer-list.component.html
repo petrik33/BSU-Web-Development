@@ -1,1 +1,6 @@
-<p>developer-list works!</p>
+<div class="list-group my-4 mx-auto" style="width: 24rem;">
+    <a *ngFor="let developer of developers" class="list-group-item list-group-item-action text-center"
+        [routerLink]="['../developer', developer.id]">
+        {{developer.name}}
+    </a>
+</div>
