@@ -7,5 +7,6 @@ export const Developers: Developer[] = [
     { id: 5, name: 'Robert Brown', qualification: 'Developer', salary: 543 },
     { id: 6, name: 'Emily Davis', qualification: 'Designer', salary: 876 },
     { id: 7, name: 'Michael Wilson', qualification: 'Developer', salary: 345 },
-    { id: 8, name: 'Jennifer Thompson', qualification: 'Manager', salary: 654 }
+    { id: 8, name: 'Jennifer Thompson', qualification: 'Manager', salary: 654 },
+    { id: 10, name: 'Jennifer Thompson II', qualification: 'Manager', salary: 10 }
 ];
