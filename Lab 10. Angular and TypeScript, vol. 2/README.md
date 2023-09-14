@@ -1,3 +1,5 @@
+Ссылка на лаб работу: https://github.com/petrik33/BSU-Web-Development
+
 # BaseProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
