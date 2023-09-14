@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Developers } from './mock-developer-list';
+import { Observable, of } from 'rxjs';
 
 export interface Developer {
   name: string;
@@ -12,20 +13,22 @@ export interface Developer {
   providedIn: 'root'
 })
 export class DevelopersService {
-  private developers: Developer[] = Developers;
+  private developers: Developer[] = [];
 
-  constructor() { }
-
-  getDevelopers() {
-    return this.developers;
+  constructor() {
+    this.developers = Developers;
   }
 
-  getDeveloper(id : number) {
+  getDevelopers() {
+    return of(this.developers);
+  }
+
+  getDeveloper(id : number) : Observable<Developer | null> {
     let dev = this.developers.find(d => d.id == id);
     if (!dev) {
-      return null;
+      return of(null);
     }
-    return dev;
+    return of(dev);
   }
 
   getNextDeveloperId(id : number) {
