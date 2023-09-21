@@ -11,7 +11,7 @@ const routes: Routes = [
       { path: 'list', component: DeveloperListComponent },
       { path: 'developer/:id', component: DeveloperDetailsComponent },
       { path: 'form/:id', component: DeveloperFormComponent },
-      { path: 'form', component: DeveloperFormComponent },
+      { path: 'form/new', component: DeveloperFormComponent },
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: '**', redirectTo: 'list', pathMatch: 'full' }
     ]
