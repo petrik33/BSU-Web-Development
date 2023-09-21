@@ -15,5 +15,9 @@
         <p class="card-text text-center my-2">Salary: {{developer.salary}}k/year</p>
         <a class="card-link" routerLink="../../">Back</a>
         <a class="card-link" [routerLink]="['../', this.service.getNextDeveloperId(developer.id)]">Next</a>
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-secondary mx-2" [routerLink]="['../../form', developer.id]">Edit</a>
+            <button class="btn btn-danger mx-2" (click)="onDeleteDeveloper()">Delete</button>
+        </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Developer, DevelopersService } from '../service/developers.service';
-import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-developer-details',
   templateUrl: './developer-details.component.html',
@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 export class DeveloperDetailsComponent implements OnInit {
   developer: Developer | null = null;
 
-  constructor(public service: DevelopersService, private route: ActivatedRoute) { }
+  constructor(public service: DevelopersService, private route: ActivatedRoute, private router : Router) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(
@@ -28,5 +28,14 @@ export class DeveloperDetailsComponent implements OnInit {
     ).subscribe((developer) => {
       this.developer = developer
     });
+  }
+
+  onDeleteDeveloper() {
+    if (this.developer == null) {
+      return;
+    }
+
+    this.service.deleteDeveloper(this.developer.id);
+    this.router.navigate(['list'], { relativeTo: this.route.parent });
   }
 }

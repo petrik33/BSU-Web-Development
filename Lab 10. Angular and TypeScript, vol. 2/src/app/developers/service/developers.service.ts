@@ -44,4 +44,20 @@ export class DevelopersService {
 
     return this.developers[idx + 1].id;
   }
+
+  addDeveloper(developer: Developer) {
+    developer.id = this.developers.length > 0 ? Math.max(...this.developers.map(d => d.id)) + 1 : 1;
+    this.developers.push(developer);
+  }
+  
+  updateDeveloper(developer: Developer) {
+    let idx = this.developers.findIndex(d => d.id === developer.id);
+    if (idx !== -1) {
+      this.developers[idx] = developer;
+    }
+  }
+  
+  deleteDeveloper(id: number) {
+    this.developers = this.developers.filter(d => d.id !== id);
+  }
 }
