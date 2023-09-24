@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "bsu-web-lab10"
+  },
+  "targets": {
+    "bsu-web-lab10": {
+      "hosting": {
+        "base-project": [
+          "bsu-web-lab10"
+        ]
+      }
+    }
   }
 }
