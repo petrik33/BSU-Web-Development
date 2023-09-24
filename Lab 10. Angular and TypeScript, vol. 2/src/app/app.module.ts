@@ -5,21 +5,25 @@ import { AppComponent } from './app.component';
 import { UtilsModule } from './utils/utils.module';
 import { DevelopersModule } from './developers/developers.module';
 import { AppRoutingModule } from './app-routing.module';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+import { initializeApp } from 'firebase/app';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore } from '@angular/fire/firestore';
+import { getFirestore } from 'firebase/firestore';
+
+const app = initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    provideFirebaseApp(() => app),
+    provideFirestore(() => getFirestore()),
     BrowserModule,
     UtilsModule,
     DevelopersModule,
-    AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Developer, DevelopersService } from '../service/developers.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 @Component({
   selector: 'app-developer-details',
   templateUrl: './developer-details.component.html',
@@ -19,7 +19,7 @@ export class DeveloperDetailsComponent implements OnInit {
         const id = value.get('id');
 
         if (id) {
-          const developer$ = this.service.getDeveloper(+id);
+          const developer$ = from(this.service.getDeveloper(id));
           return developer$
         }
 
@@ -30,12 +30,21 @@ export class DeveloperDetailsComponent implements OnInit {
     });
   }
 
-  onDeleteDeveloper() {
+  async onDeleteDeveloper() {
     if (this.developer == null) {
       return;
     }
 
-    this.service.deleteDeveloper(this.developer.id);
-    this.router.navigate(['list'], { relativeTo: this.route.parent });
+    await this.service.deleteDeveloper(this.developer.id);
+    this.router.navigate(['../../'], { relativeTo: this.route });
+  }
+
+  async onNextDeveloper() {
+    if (!this.developer) {
+      return
+    }
+
+    const next = await this.service.getNextDeveloper(this.developer.id);
+    this.router.navigate(['../', next?.id], { relativeTo: this.route });
   }
 }

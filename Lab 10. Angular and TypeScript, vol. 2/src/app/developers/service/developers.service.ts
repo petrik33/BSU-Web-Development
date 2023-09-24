@@ -1,63 +1,94 @@
-import { Injectable } from '@angular/core';
-import { Developers } from './mock-developer-list';
-import { Observable, of } from 'rxjs';
+import { Time } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
+import { FirebaseApp } from '@angular/fire/app';
+import { Firestore } from '@angular/fire/firestore';
+import { DocumentData, QueryDocumentSnapshot, Timestamp, addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, setDoc, where } from 'firebase/firestore';
 
 export interface Developer {
   name: string;
-  id: number;
-  qualification : string;
-  salary : number;
+  id: string;
+  qualification: string;
+  salary: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DevelopersService {
-  private developers: Developer[] = [];
+  private collectionId = 'developers';
 
-  constructor() {
-    this.developers = Developers;
+  constructor(private db: Firestore) {
+    this.db = inject(Firestore);
   }
 
-  getDevelopers() {
-    return of(this.developers);
+  private mapDeveloper = (doc: QueryDocumentSnapshot<DocumentData, DocumentData>) => {
+    const data = doc.data()
+    return {
+      ...doc.data(),
+      id: doc.id
+    } as unknown as Developer
   }
 
-  getDeveloper(id : number) : Observable<Developer | null> {
-    let dev = this.developers.find(d => d.id == id);
-    if (!dev) {
-      return of(null);
-    }
-    return of(dev);
+  async getDevelopers() {
+    const q = query(
+      collection(this.db, this.collectionId),
+      orderBy("registered", 'asc')
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(this.mapDeveloper);
   }
 
-  getNextDeveloperId(id : number) {
-    let idx = this.developers.findIndex(d => d.id == id);
+  async getDeveloper(id: string) {
+    const devSnap = await getDoc(doc(this.db, this.collectionId, id))
+    return {
+      ...devSnap.data(),
+      id
+    } as unknown as Developer
+  }
 
-    if (idx == -1) {
-      return -1;
+  async getNextDeveloper(id: string) {
+    const devSnap = await getDoc(doc(this.db, this.collectionId, id))
+    const data = devSnap.data()
+    if (!data) {
+      return
+    }
+    const timestamp : Timestamp = data['registered']
+
+    const q = query(
+      collection(this.db, this.collectionId),
+      where('registered', '>', timestamp),
+      orderBy('registered', 'asc'),
+      limit(1)
+    );
+    const snapshot = await getDocs(q);
+
+    if (snapshot.docs.length === 0) {
+      const queryOldest = query(
+        collection(this.db, this.collectionId),
+        orderBy('registered', 'asc'),
+        limit(1)
+      );
+      const snap3 = await getDocs(queryOldest);
+      return snap3.docs.map(this.mapDeveloper)[0];
     }
 
-    if (idx == this.developers.length - 1) {
-      return this.developers[0].id;
-    }
-
-    return this.developers[idx + 1].id;
+    return snapshot.docs.map(this.mapDeveloper)[0];
   }
 
   addDeveloper(developer: Developer) {
-    developer.id = this.developers.length > 0 ? Math.max(...this.developers.map(d => d.id)) + 1 : 1;
-    this.developers.push(developer);
-  }
-  
-  updateDeveloper(developer: Developer) {
-    let idx = this.developers.findIndex(d => d.id === developer.id);
-    if (idx !== -1) {
-      this.developers[idx] = developer;
+    const { id, ...data } = developer
+    const doc = {
+      ...data,
+      registered: Timestamp.now()
     }
+    return addDoc(collection(this.db, this.collectionId), doc);
   }
-  
-  deleteDeveloper(id: number) {
-    this.developers = this.developers.filter(d => d.id !== id);
+
+  updateDeveloper(developer: Developer) {
+    return setDoc(doc(this.db, this.collectionId, developer.id), developer);
+  }
+
+  deleteDeveloper(id: string) {
+    return deleteDoc(doc(this.db, this.collectionId, id));
   }
 }

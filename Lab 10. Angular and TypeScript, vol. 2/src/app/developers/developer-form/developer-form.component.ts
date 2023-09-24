@@ -11,7 +11,7 @@ import { of } from 'rxjs';
   styleUrls: ['./developer-form.component.css']
 })
 export class DeveloperFormComponent implements OnInit {
-  developer: Developer = { name: '', id: 0, qualification: '', salary: 0 };
+  developer: Developer = { name: '', id: '', qualification: '', salary: 0 };
 
   constructor(private service: DevelopersService, private router: Router, private route: ActivatedRoute) {}
 
@@ -21,7 +21,7 @@ export class DeveloperFormComponent implements OnInit {
         const id = value.get('id');
 
         if (id) {
-          const developer$ = this.service.getDeveloper(+id);
+          const developer$ = this.service.getDeveloper(id);
           return developer$
         }
 
@@ -36,15 +36,15 @@ export class DeveloperFormComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
     }
     
-    if (this.developer.id) {
-      this.service.updateDeveloper(this.developer);
+    if (this.developer.id && this.developer.id != 'new') {
+      await this.service.updateDeveloper(this.developer);
     } else {
-      this.service.addDeveloper(this.developer);
+      await this.service.addDeveloper(this.developer);
     }
 
     this.router.navigate(['list'], { relativeTo: this.route.parent });
