@@ -1,0 +1,26 @@
+[debug] [2023-09-24T13:55:47.510Z] ----------------------------------------------------------------------
+[debug] [2023-09-24T13:55:47.512Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\petri\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-09-24T13:55:47.513Z] CLI Version:   12.5.4
+[debug] [2023-09-24T13:55:47.513Z] Platform:      win32
+[debug] [2023-09-24T13:55:47.513Z] Node Version:  v16.14.0
+[debug] [2023-09-24T13:55:47.514Z] Time:          Sun Sep 24 2023 16:55:47 GMT+0300 (Москва, стандартное время)
+[debug] [2023-09-24T13:55:47.514Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-24T13:55:47.576Z] Field ".hosting" in "firebase.json" is possibly invalid: should be object
+[debug] [2023-09-24T13:55:47.576Z] Object ".hosting[0]" in "firebase.json" is missing required property: {"missingProperty":"target"}
+[debug] [2023-09-24T13:55:47.576Z] Object ".hosting[0]" in "firebase.json" is missing required property: {"missingProperty":"site"}
+[debug] [2023-09-24T13:55:47.577Z] Field ".hosting[0]" in "firebase.json" is possibly invalid: should match some schema in anyOf
+[debug] [2023-09-24T13:55:47.577Z] Field ".hosting" in "firebase.json" is possibly invalid: should match some schema in anyOf
+[debug] [2023-09-24T13:55:47.582Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-24T13:55:47.582Z] > authorizing via signed-in user (petrik3003@gmail.com)
+[debug] [2023-09-24T13:55:47.582Z] [iam] checking project bsu-web-lab10 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-09-24T13:55:47.584Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/bsu-web-lab10:testIamPermissions [none]
+[debug] [2023-09-24T13:55:47.584Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/bsu-web-lab10:testIamPermissions x-goog-quota-user=projects/bsu-web-lab10
+[debug] [2023-09-24T13:55:47.584Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bsu-web-lab10:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-09-24T13:55:48.320Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/bsu-web-lab10:testIamPermissions 200
+[debug] [2023-09-24T13:55:48.320Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bsu-web-lab10:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-09-24T13:55:48.321Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bsu-web-lab10 [none]
+[debug] [2023-09-24T13:55:48.601Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bsu-web-lab10 200
+[debug] [2023-09-24T13:55:48.601Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bsu-web-lab10 {"projectId":"bsu-web-lab10","projectNumber":"969108418497","displayName":"bsu-web-lab10","name":"projects/bsu-web-lab10","resources":{"hostingSite":"bsu-web-lab10"},"state":"ACTIVE","etag":"1_cfa4cd0e-91ff-41f5-8845-1bcc2dd7721c"}
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
