@@ -38,3 +38,5 @@ testem.log
 # System files
 **/.DS_Store
 **/Thumbs.db
+
+**/mysql-connector-j-8.0.33
