@@ -1,8 +1,9 @@
 import java.util.EnumMap;
 
-public class Bill {
-
-    Bill() {
+public class Invoice {
+    Invoice(Project project, Customer customer) {
+        this.project = project;
+        this.customer = customer;
         amountPerQualification = new EnumMap<>(Qualification.class);
     }
 
@@ -26,4 +27,6 @@ public class Bill {
 
     protected EnumMap<Qualification, Integer> amountPerQualification;
     protected Integer managementPay;
+    protected Project project;
+    protected Customer customer;
 }

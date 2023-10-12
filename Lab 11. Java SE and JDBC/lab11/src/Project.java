@@ -9,10 +9,6 @@ public class Project {
         return name;
     }
 
-    public void SetBill(Bill bill) {
-        this.bill = bill;
-    }
-
     public void Progress(int hours) {
         hoursLeft -= hours;
     }
@@ -23,5 +19,4 @@ public class Project {
 
     protected String name;
     protected Integer hoursLeft;
-    protected Bill bill;
 }

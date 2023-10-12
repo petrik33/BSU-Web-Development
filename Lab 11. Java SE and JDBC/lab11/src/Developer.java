@@ -1,7 +1,6 @@
 import java.util.HashMap;
 
 public class Developer {
-
     Developer (String name, Qualification qualification, int payRate) {
         this.name = name;
         this.qualification = qualification;
@@ -45,4 +44,5 @@ public class Developer {
     protected Integer payRate;
     protected Project currentProject;
     protected HashMap<String, Integer> workingLog;
+    protected DevTeam team;
 }

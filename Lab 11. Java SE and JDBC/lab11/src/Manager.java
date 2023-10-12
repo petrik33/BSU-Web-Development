@@ -29,16 +29,15 @@ public class Manager {
         Vector<Developer> foundDevelopers = new Vector<>();
 
         for (Job job : specification) {
-            for (Qualification qualification : Qualification.values()) {
-                int required = job.GetRequirement(qualification);
-                List<Developer> developers = FindFreeQualifiedDevelopers(qualification);
-                if (developers.size() < required) {
-                    return new Vector<>();
-                }
-                developers.sort(Comparator.comparingInt(Developer::GetPayRate));
-                for (int i = 0; i < required; ++i) {
-                    foundDevelopers.add(developers.get(i));
-                }
+            Qualification qualification = job.GetQualification();
+            int requiredNumber = job.GetNumber();
+            List<Developer> developers = FindFreeQualifiedDevelopers(qualification);
+            if (developers.size() < requiredNumber) {
+                return new Vector<>();
+            }
+            developers.sort(Comparator.comparingInt(Developer::GetPayRate));
+            for (int i = 0; i < requiredNumber; ++i) {
+                foundDevelopers.add(developers.get(i));
             }
         }
 
@@ -47,7 +46,7 @@ public class Manager {
 
     protected List<Developer> FindFreeQualifiedDevelopers(Qualification qualification) {
         return team
-                .getDevelopers()
+                .GetDevelopers()
                 .stream()
                 .filter(developer -> (developer.GetQualification() == qualification && developer.GetCurrentProject() == null))
                 .collect(Collectors.toList());

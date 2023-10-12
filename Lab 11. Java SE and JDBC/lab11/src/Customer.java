@@ -11,6 +11,14 @@ public class Customer {
         jobs.add(job);
     }
 
+    public Vector<Job> GetSpecification() {
+        return jobs;
+    }
+
+    public String GetName() {
+        return name;
+    }
+
     protected Vector<Job> jobs;
     protected String name;
 }

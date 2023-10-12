@@ -1,19 +1,18 @@
-import java.util.EnumMap;
-
 public class Job {
 
-    Job() {
-        requiredDevelopers = new EnumMap<>(Qualification.class);
+    Job(Qualification qualification, int number) {
+        this.requiredDevelopersNumber = number;
+        this.requiredQualification = qualification;
     }
 
-    public int GetRequirement(Qualification qualification) {
-        return requiredDevelopers.get(qualification);
+    public int GetNumber() {
+        return requiredDevelopersNumber;
     }
 
-    public void RequireDevelopers(Qualification qualification, Integer number) {
-        requiredDevelopers.putIfAbsent(qualification, 0);
-        requiredDevelopers.put(qualification, requiredDevelopers.get(qualification) + number);
+    public Qualification GetQualification() {
+        return requiredQualification;
     }
 
-    protected EnumMap<Qualification, Integer> requiredDevelopers;
+    protected Integer requiredDevelopersNumber;
+    protected Qualification requiredQualification;
 }

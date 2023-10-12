@@ -2,16 +2,30 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Customer man = new Customer(new String("Me"));
+        man.AddJob(new Job(Qualification.INTERN, 1));
+        man.AddJob(new Job(Qualification.SENIOR, 1));
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        Developer d1 = new Developer(new String("J1"), Qualification.INTERN, 10);
+        Developer d2 = new Developer(new String("J2"), Qualification.SENIOR, 30);
+        Developer d3 = new Developer(new String("J3"), Qualification.SENIOR, 50);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        Manager sasha = new Manager(new String("Alexandr"), 33);
+
+        DevTeam teamTest = new DevTeam(new String("BSU"));
+
+        sasha.JoinTeam(teamTest);
+        teamTest.AddDeveloper(d1);
+        teamTest.AddDeveloper(d2);
+        teamTest.AddDeveloper(d3);
+
+        ProjectPlan plan = ProjectPlan
+                .Init(man, new String("New Project"), 500)
+                .Assign(sasha);
+
+        Invoice invoice = plan.MakeInvoice();
+        Project project = plan.Start();
+
+        int total = invoice.GetTotal();
     }
 }

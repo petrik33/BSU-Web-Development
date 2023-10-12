@@ -11,7 +11,7 @@ public class DevTeam {
         this.developers.add(developer);
     }
 
-    public Vector<Developer> getDevelopers() {
+    public Vector<Developer> GetDevelopers() {
         return developers;
     }
 

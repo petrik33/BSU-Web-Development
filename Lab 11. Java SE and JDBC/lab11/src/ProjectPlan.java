@@ -2,9 +2,9 @@ import java.util.Vector;
 
 public class ProjectPlan {
 
-    public static ProjectPlan Init(String name, int hoursLong, Vector<Job> specification) {
+    public static ProjectPlan Init(Customer customer, String name, int hoursLong) {
         ProjectPlan plan = new ProjectPlan();
-        plan.specification = specification;
+        plan.customer = customer;
         plan.developers = new Vector<>();
         plan.project = new Project(name, hoursLong);
         return plan;
@@ -12,7 +12,7 @@ public class ProjectPlan {
 
     public ProjectPlan Assign(Manager manager) {
         this.manager = manager;
-        this.developers = this.manager.FindFreeDevelopers(specification);
+        this.developers = this.manager.FindFreeDevelopers(customer.GetSpecification());
         return this;
     }
 
@@ -20,14 +20,13 @@ public class ProjectPlan {
         return this.manager != null && this.developers != null && !this.developers.isEmpty();
     }
 
-    public Bill EstimateCost() {
-        Bill bill = new Bill();
+    public Invoice MakeInvoice() {
+        Invoice invoice = new Invoice(project, customer);
         for (Developer dev : developers) {
-            bill.IncreaseAmount(dev.qualification, dev.payRate);
+            invoice.IncreaseAmount(dev.qualification, dev.payRate);
         }
-        bill.SetManagementPay(manager.payRate);
-        project.bill = bill;
-        return bill;
+        invoice.SetManagementPay(manager.payRate);
+        return invoice;
     }
 
     public Project Start() {
@@ -42,7 +41,7 @@ public class ProjectPlan {
     }
 
     protected Project project;
-    protected Vector<Job> specification;
+    protected Customer customer;
     protected Manager manager;
     protected Vector<Developer> developers;
 }
