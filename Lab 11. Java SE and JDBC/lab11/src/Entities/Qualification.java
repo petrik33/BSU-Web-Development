@@ -1,3 +1,5 @@
+package Entities;
+
 public enum Qualification {
     INTERN,
     JUNIOR,
