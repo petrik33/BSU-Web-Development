@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Developer, DevelopersService } from '../service/developers.service';
-import { Observable, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 
 @Component({
   selector: 'app-developer-list',
@@ -8,13 +8,11 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./developer-list.component.css']
 })
 export class DeveloperListComponent implements OnInit {
-  developers$ : Observable<Developer[]> = of([]);
-  
-  constructor(private service: DevelopersService) {
-    
-  }
+  developers$: Observable<Developer[]> = of([]);
+
+  constructor(private service: DevelopersService) { }
 
   ngOnInit() {
-    this.developers$ = this.service.getDevelopers()
+    this.developers$ = from(this.service.getDevelopers());
   }
 }
