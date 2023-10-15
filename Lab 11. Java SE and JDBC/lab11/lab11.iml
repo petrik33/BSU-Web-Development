@@ -16,5 +16,26 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/build/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/demo/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/generated/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/legacy/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/main/core-api/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/main/core-impl/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/main/protocol-impl/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/main/user-api/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/main/user-impl/java" />
+          <root url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33/src/test/java" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

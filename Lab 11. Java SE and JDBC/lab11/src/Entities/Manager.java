@@ -9,9 +9,10 @@ import java.util.stream.Collectors;
 
 public class Manager {
 
-    Manager(String name, int payRate) {
+    public Manager(String name, int payRate, DevTeam team) {
         this.name = name;
         this.payRate = payRate;
+        this.team = team;
         this.projects = new Vector<>();
     }
 
@@ -53,4 +54,16 @@ public class Manager {
     protected Integer payRate;
     protected DevTeam team;
     protected Vector<Project> projects;
+
+    // DATA ACCESS
+
+    protected Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

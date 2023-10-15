@@ -38,4 +38,16 @@ public class DevTeam {
     protected String name;
     protected Vector<Developer> developers;
     protected Manager manager;
+
+    // DATA ACCESS
+
+    protected Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

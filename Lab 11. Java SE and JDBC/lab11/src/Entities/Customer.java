@@ -8,14 +8,14 @@ public class Customer {
 
     public Customer(String name) {
         this.name = name;
-        this.jobs = new Vector<>();
+        this.specifications = new Vector<>();
     }
 
-    public Vector<Job> getSpecification() {
-        return jobs;
+    public Vector<Specification> getSpecifications() {
+        return specifications;
     }
 
-    public String GetName() {
+    public String getName() {
         return name;
     }
 
@@ -23,10 +23,22 @@ public class Customer {
         this.name = name;
     }
 
-    public void addJob(Job job) {
-        jobs.add(job);
+    public void addSpecification(Specification specification) {
+        specifications.add(specification);
     }
 
-    protected Vector<Job> jobs;
+    protected Vector<Specification> specifications;
     protected String name;
+
+    // DATA ACCESS
+
+    protected Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

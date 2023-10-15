@@ -1,8 +1,8 @@
 package Entities;
 
 public enum Qualification {
-    INTERN,
-    JUNIOR,
-    MIDDLE,
-    SENIOR
+    intern,
+    junior,
+    middle,
+    senior
 }

@@ -46,4 +46,16 @@ public class Invoice {
     protected boolean isPaid;
     protected Customer customer;
     protected Integer amount;
+
+    // DATA ACCESS
+
+    protected Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
