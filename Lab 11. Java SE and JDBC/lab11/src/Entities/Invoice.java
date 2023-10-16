@@ -10,6 +10,17 @@ public class Invoice {
         this.isPaid = false;
     }
 
+    @Override
+    public String toString() {
+        String str = getId().toString() + ": " + amount.toString() + " for " + project.getName() + " issued to " + customer.getName();
+        if (isPaid) {
+            str += ", Paid";
+        } else {
+            str += ", To be Paid";
+        }
+        return str;
+    }
+
     public void setProject(Project project) {
         this.project = project;
     }

@@ -1,24 +1,12 @@
-import Controllers.ProjectPlan;
 import DataPackage.DAOException;
 import Entities.*;
 import EntitiesDao.*;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
 public class Main {
     public static void outputObject(Object object) throws IllegalAccessException {
-//        Class<?> aClass = object.getClass();
-//        // Получаем все поля объекта
-//        Field[] fields = aClass.getDeclaredFields();
-//
-//        for (Field field : fields) {
-//            field.setAccessible(true);
-//            String fieldName = field.getName();
-//            Object value = field.get(aClass);
-//            System.out.println(fieldName + ": " + value);
-//        }
         System.out.println(object.toString());
     }
 
@@ -47,25 +35,47 @@ public class Main {
         DaoDeveloper daoDeveloper = new DaoDeveloper();
         List<Developer> developers = daoDeveloper.getDevelopersByTeam(team1.get());
 
+        System.out.println("Developers of " + team1.get().getName());
         for (Developer developer : developers) {
             outputObject(developer);
         }
 
         // Task 3
-        List<Developer> developers2 = daoDeveloper.getDevelopersByProject(projects.get(0));
+        Optional<Project> project2 = daoProject.get(1);
+        if (!project2.isPresent()) {
+            throw new DAOException("Can't find project with id: 1");
+        }
+
+        List<Developer> developers2 = daoDeveloper.getDevelopersByProject(project2.get());
+
+        System.out.println("Developers working on " + project2.get().getName());
         for (Developer developer : developers2) {
             outputObject(developer);
         }
 
-        // Task 4
+        // Task 4, Part 1
+        Optional<Project> project3 = daoProject.get(3);
+        if (!project3.isPresent()) {
+            throw new DAOException("Can't find project with id: 2");
+        }
+
+        Developer testDeveloper;
+        if (!developers2.isEmpty()) {
+            testDeveloper = developers2.get(0);
+        } else {
+            testDeveloper = daoDeveloper.getAll().get(0);
+        }
+        daoDeveloper.assignProjectToDeveloper(testDeveloper, project3.get());
+
+        // Task 4, Part 2
         DaoInvoice daoInvoice = new DaoInvoice();
         Optional<Invoice> invoice3 = daoInvoice.get(3);
         if (!invoice3.isPresent()) {
             throw new DAOException("Can't find invoice with id: 1");
         }
 
-        outputObject(invoice3);
-        daoInvoice.Pay(invoice3.get());
+        outputObject(invoice3.get());
+        daoInvoice.pay(invoice3.get());
         outputObject(invoice3.get());
     }
 }

@@ -11,6 +11,17 @@ public class Developer {
         this.currentProject = null;
     }
 
+    @Override
+    public String toString() {
+        String returned = getId().toString() + ": " + getName() + ", " + getQualification().toString() + ", " + getPayRate().toString() + ", " + getTeam().getName() + ", ";
+        if (getCurrentProject() != null) {
+            returned += getCurrentProject().getName();
+        } else {
+            returned += "no current project";
+        }
+        return returned;
+    }
+
     public Integer getPayRate() {
         return payRate;
     }
