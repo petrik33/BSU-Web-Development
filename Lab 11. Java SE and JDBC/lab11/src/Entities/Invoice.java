@@ -12,7 +12,7 @@ public class Invoice {
 
     @Override
     public String toString() {
-        String str = getId().toString() + ": " + amount.toString() + " for " + project.getName() + " issued to " + customer.getName();
+        String str = getId().toString() + ") " + amount.toString() + " for " + project.getName() + " issued to " + customer.getName();
         if (isPaid) {
             str += ", Paid";
         } else {

@@ -7,6 +7,11 @@ public class Project {
         this.specification = specification;
     }
 
+    @Override
+    public String toString() {
+        return getId().toString() + ") " + getName() + " by " + getTeam().getName();
+    }
+
     public String getName() {
         return name;
     }

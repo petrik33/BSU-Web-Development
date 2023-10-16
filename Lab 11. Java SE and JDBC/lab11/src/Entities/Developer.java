@@ -13,7 +13,7 @@ public class Developer {
 
     @Override
     public String toString() {
-        String returned = getId().toString() + ": " + getName() + ", " + getQualification().toString() + ", " + getPayRate().toString() + ", " + getTeam().getName() + ", ";
+        String returned = getId().toString() + ") " + getName() + ", " + getQualification().toString() + ", " + getPayRate().toString() + ", " + getTeam().getName() + ", ";
         if (getCurrentProject() != null) {
             returned += getCurrentProject().getName();
         } else {

@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class Main {
-    public static void outputObject(Object object) throws IllegalAccessException {
+    public static void outputObject(Object object) {
         System.out.println(object.toString());
     }
 
-    public static void main(String[] args) throws IllegalAccessException, DAOException {
+    public static void main(String[] args) throws DAOException {
         // Task 1
         DaoCustomer daoCustomer = new DaoCustomer();
         Optional<Customer> customer1 = daoCustomer.get(1);
@@ -21,6 +21,7 @@ public class Main {
         DaoProject daoProject = new DaoProject();
         List<Project> projects = daoProject.getProjectsForCustomer(customer1.get());
 
+        System.out.println("Projects of " + customer1.get().getName());
         for (Project project : projects) {
             outputObject(project);
         }
@@ -65,7 +66,10 @@ public class Main {
         } else {
             testDeveloper = daoDeveloper.getAll().get(0);
         }
+
+        System.out.println("Test developer before assigning project: " + testDeveloper);
         daoDeveloper.assignProjectToDeveloper(testDeveloper, project3.get());
+        System.out.println("Test developer after assigning project: " + testDeveloper);
 
         // Task 4, Part 2
         DaoInvoice daoInvoice = new DaoInvoice();
@@ -74,8 +78,8 @@ public class Main {
             throw new DAOException("Can't find invoice with id: 1");
         }
 
-        outputObject(invoice3.get());
+        System.out.println("Invoice before paying: " + invoice3.get());
         daoInvoice.pay(invoice3.get());
-        outputObject(invoice3.get());
+        System.out.println("Invoice after paying: " + invoice3.get());
     }
 }
