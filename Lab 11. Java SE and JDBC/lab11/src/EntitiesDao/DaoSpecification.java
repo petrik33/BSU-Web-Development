@@ -19,12 +19,14 @@ public class DaoSpecification extends DaoMySql<Specification> {
     public DaoSpecification() throws DAOException {
         super();
         this.daoCustomer = new DaoCustomer();
-        try {
-            getStatement = connector.getConnection().prepareStatement("SELECT * FROM Specification WHERE id = ?");
-            getAllStatement = connector.getConnection().prepareStatement("SELECT * FROM Specification");
-        } catch (SQLException e) {
-            throw new DAOException("Error initializing prepared statements: " + e.getMessage());
-        }
+    }
+
+    @Override public String getStatement() {
+        return "SELECT * FROM Specification WHERE id = ?";
+    }
+
+    @Override public String getAllStatement() {
+        return "SELECT * FROM Specification";
     }
 
     @Override

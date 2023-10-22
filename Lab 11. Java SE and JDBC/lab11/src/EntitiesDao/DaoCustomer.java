@@ -12,14 +12,12 @@ import java.util.Optional;
 
 public class DaoCustomer extends DaoMySql<Customer> {
 
-    public DaoCustomer() throws DAOException {
-        super();
-        try {
-            getStatement = connector.getConnection().prepareStatement("SELECT * FROM Customer WHERE id = ?");
-            getAllStatement = connector.getConnection().prepareStatement("SELECT * FROM Customer");
-        } catch (SQLException e) {
-            throw new DAOException("Error initializing prepared statements: " + e.getMessage());
-        }
+    @Override public String getStatement() {
+        return "SELECT * FROM Customer WHERE id = ?";
+    }
+
+    @Override public String getAllStatement() {
+        return "SELECT * FROM Customer";
     }
 
     @Override

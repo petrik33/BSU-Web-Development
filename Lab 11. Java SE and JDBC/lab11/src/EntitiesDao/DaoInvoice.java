@@ -5,7 +5,9 @@ import DataPackage.DaoMySql;
 import Entities.Customer;
 import Entities.Invoice;
 import Entities.Project;
+import Jdbc.JdbcConnector;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,22 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static Logger.LogManager.logException;
+
 public class DaoInvoice extends DaoMySql<Invoice> {
     private DaoProject daoProject;
     private DaoCustomer daoCustomer;
-    private PreparedStatement payStatement;
+    private String payQuery = "UPDATE invoices SET IsPaid = ? WHERE id = ?";
 
     public DaoInvoice() throws DAOException {
         super();
         this.daoProject = new DaoProject();
         this.daoCustomer = new DaoCustomer();
-        try {
-            getStatement = connector.getConnection().prepareStatement("SELECT * FROM invoices WHERE id = ?");
-            getAllStatement = connector.getConnection().prepareStatement("SELECT * FROM invoices");
-            payStatement = connector.getConnection().prepareStatement("UPDATE invoices SET IsPaid = ? WHERE id = ?");
-        } catch (SQLException e) {
-            throw new DAOException("Error initializing prepared statements: " + e.getMessage());
-        }
+    }
+
+    @Override public String getStatement() {
+        return "SELECT * FROM invoices WHERE id = ?";
+    }
+
+    @Override public String getAllStatement() {
+        return "SELECT * FROM invoices";
     }
 
     @Override
@@ -54,13 +59,23 @@ public class DaoInvoice extends DaoMySql<Invoice> {
         return Optional.of(invoice);
     }
 
-    public void pay(Invoice invoice) {
-        try {
-            payStatement.setBoolean(1, true);
-            payStatement.setInt(2, invoice.getId());
-            payStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void cancelPayment(Invoice invoice) throws SQLException {
+        Connection connection = JdbcConnector.GetConnection();
+        PreparedStatement payStatement = connection.prepareStatement(payQuery);
+        payStatement.setBoolean(1, false);
+        payStatement.setInt(2, invoice.getId());
+        payStatement.executeUpdate();
+        JdbcConnector.ReleaseConnection(connection);
+        invoice.setPaid(false);
+    }
+
+    public void pay(Invoice invoice) throws SQLException {
+        Connection connection = JdbcConnector.GetConnection();
+        PreparedStatement payStatement = connection.prepareStatement(payQuery);
+        payStatement.setBoolean(1, true);
+        payStatement.setInt(2, invoice.getId());
+        payStatement.executeUpdate();
+        JdbcConnector.ReleaseConnection(connection);
+        invoice.setPaid(true);
     }
 }

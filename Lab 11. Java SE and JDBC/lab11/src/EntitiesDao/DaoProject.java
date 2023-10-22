@@ -3,7 +3,10 @@ package EntitiesDao;
 import DataPackage.DAOException;
 import DataPackage.DaoMySql;
 import Entities.*;
+import Jdbc.JdbcConnectionException;
+import Jdbc.JdbcConnector;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,21 +17,22 @@ import java.util.Optional;
 public class DaoProject extends DaoMySql<Project> {
     private DaoTeam daoTeam;
     private DaoSpecification daoSpecification;
-    private PreparedStatement projectsByCustomerStatement;
+    private String byCustomerStatement = "SELECT p.* FROM Project p " +
+            "JOIN Invoices i ON p.id = i.projectID " +
+            "WHERE i.customerID = ?";
 
     public DaoProject() throws DAOException {
         super();
         this.daoSpecification = new DaoSpecification();
         this.daoTeam = new DaoTeam();
-        try {
-            getStatement = connector.getConnection().prepareStatement("SELECT * FROM Project WHERE id = ?");
-            getAllStatement = connector.getConnection().prepareStatement("SELECT * FROM Project");
-            projectsByCustomerStatement = connector.getConnection().prepareStatement("SELECT p.* FROM Project p " +
-                    "JOIN Invoices i ON p.id = i.projectID " +
-                            "WHERE i.customerID = ?");
-        } catch (SQLException e) {
-            throw new DAOException("Error initializing prepared statements: " + e.getMessage());
-        }
+    }
+
+    @Override public String getStatement() {
+        return "SELECT * FROM Project WHERE id = ?";
+    }
+
+    @Override public String getAllStatement() {
+        return "SELECT * FROM Project";
     }
 
     @Override
@@ -48,16 +52,15 @@ public class DaoProject extends DaoMySql<Project> {
         return Optional.of(project);
     }
 
-    public List<Project> getProjectsForCustomer(Customer customer) {
+    public List<Project> getProjectsForCustomer(Customer customer) throws SQLException, DAOException {
         List<Project> projects = new ArrayList<>();
-        try {
-            projectsByCustomerStatement.setInt(1, customer.getId());
-            ResultSet resultSet = projectsByCustomerStatement.executeQuery();
-            while (resultSet.next()) {
-                convertFullSet(resultSet).ifPresent(projects::add);
-            }
-        } catch (SQLException | DAOException e) {
-            e.printStackTrace();
+        Connection connection = JdbcConnector.GetConnection();
+        PreparedStatement byCustomer = connection.prepareStatement(byCustomerStatement);
+        byCustomer.setInt(1, customer.getId());
+        ResultSet resultSet = byCustomer.executeQuery();
+        JdbcConnector.ReleaseConnection(connection);
+        while (resultSet.next()) {
+            convertFullSet(resultSet).ifPresent(projects::add);
         }
         return projects;
     }

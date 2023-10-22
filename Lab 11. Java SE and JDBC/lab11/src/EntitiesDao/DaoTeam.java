@@ -14,15 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class DaoTeam extends DaoMySql<DevTeam> {
-    public DaoTeam() throws DAOException {
-        super();
-        try {
-            getStatement = connector.getConnection().prepareStatement("SELECT * FROM Team WHERE id = ?");
-            getAllStatement = connector.getConnection().prepareStatement("SELECT * FROM Team");
-        } catch (SQLException e) {
-            throw new DAOException("Error initializing prepared statements: " + e.getMessage());
-        }
-    }
+
+     @Override public String getStatement() {
+        return "SELECT * FROM Team WHERE id = ?";
+     }
+
+     @Override public String getAllStatement() {
+        return "SELECT * FROM Team";
+     }
 
     @Override
     public Optional<DevTeam> convertFullSet(ResultSet resultSet) throws SQLException {
