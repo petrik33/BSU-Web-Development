@@ -1,7 +1,7 @@
 package Entities;
 
 import java.util.EnumMap;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Invoices")

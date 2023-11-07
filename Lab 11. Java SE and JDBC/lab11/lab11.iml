@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="99bbaae7-92d0-4623-8a40-904e953471e1" />
+          <unit-entry name="hibernate2.cfg.xml" value="99bbaae7-92d0-4623-8a40-904e953471e1" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate2.cfg.xml" />
+      </configuration>
+    </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
@@ -52,5 +63,9 @@
     <orderEntry type="library" name="apache.logging.log4j.core" level="project" />
     <orderEntry type="library" name="apache.logging.log4j.1.2.api" level="project" />
     <orderEntry type="library" name="hibernate.core" level="project" />
+    <orderEntry type="library" name="jakarta.inject.api" level="project" />
+    <orderEntry type="library" name="jakarta.transaction.api" level="project" />
+    <orderEntry type="library" name="jakarta.xml.bind.api" level="project" />
+    <orderEntry type="library" name="jakarta.validation.api" level="project" />
   </component>
 </module>

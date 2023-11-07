@@ -1,77 +1,62 @@
 package EntitiesDao;
-
 import DataPackage.DAOException;
 import DataPackage.DaoMySql;
-import Entities.Customer;
 import Entities.Invoice;
-import Entities.Project;
-import Jdbc.JdbcConnector;
+import org.hibernate.query.Query;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Optional;
+import java.util.Objects;
+
+import static Jdbc.HibernateConnectionPool.getSession;
+import static Jdbc.HibernateConnectionPool.releaseSession;
 
 public class DaoInvoice extends DaoMySql<Invoice> {
-    private DaoProject daoProject;
-    private DaoCustomer daoCustomer;
-    private String payQuery = "UPDATE invoices SET IsPaid = ? WHERE id = ?";
+    private String payQuery = "Invoice.payQuery";
 
-    public DaoInvoice() throws DAOException {
-        super();
-        this.daoProject = new DaoProject();
-        this.daoCustomer = new DaoCustomer();
-    }
-
-    @Override public String getStatement() {
-        return "SELECT * FROM invoices WHERE id = ?";
-    }
-
-    @Override public String getAllStatement() {
-        return "SELECT * FROM invoices";
+    @Override
+    protected String getByIdNamedQuery() {
+        return "Invoice.selectById";
     }
 
     @Override
-    public Optional<Invoice> convertFullSet(ResultSet resultSet) throws SQLException, DAOException {
-        int invoiceId = resultSet.getInt("id");
-        int amount = resultSet.getInt("amount");
-        int projectId = resultSet.getInt("projectID");
-        int customerID = resultSet.getInt("customerID");
-        boolean isPaid = resultSet.getBoolean("IsPaid");
+    protected String getAllNamedQuery() {
+        return "Invoice.selectAll";
+    }
 
-        // Assuming you have a method to retrieve a Project based on its ID
-        Optional<Project> project = daoProject.get(projectId);
-        Optional<Customer> customer = daoCustomer.get(customerID);
+    public void cancelPayment(Invoice invoice) throws DAOException {
+        var session = getSession();
+        var tx = session.beginTransaction();
+        try {
+            Query query = session.getNamedQuery(payQuery);
+            query.setParameter("isPaid", false);
+            query.setParameter("id", invoice.getId());
+            query.executeUpdate();
 
-        if (!project.isPresent() || !customer.isPresent()) {
-            return Optional.empty();
+            tx.commit();
+            invoice.setPaid(false);
+        } catch (Exception e) {
+            if (Objects.nonNull(tx)) tx.rollback();
+            throw new DAOException(e.getMessage());
+        } finally {
+            releaseSession(session);
         }
-
-        Invoice invoice = new Invoice(project.get(), customer.get(), amount);
-        invoice.setId(invoiceId);
-        invoice.setPaid(isPaid);
-
-        return Optional.of(invoice);
     }
 
-    public void cancelPayment(Invoice invoice) throws SQLException {
-        Connection connection = JdbcConnector.GetConnection();
-        PreparedStatement payStatement = connection.prepareStatement(payQuery);
-        payStatement.setBoolean(1, false);
-        payStatement.setInt(2, invoice.getId());
-        payStatement.executeUpdate();
-        JdbcConnector.ReleaseConnection(connection);
-        invoice.setPaid(false);
-    }
+    public void pay(Invoice invoice) throws DAOException {
+        var session = getSession();
+        var tx = session.beginTransaction();
+        try {
+            Query query = session.getNamedQuery(payQuery);
+            query.setParameter("isPaid", true);
+            query.setParameter("id", invoice.getId());
+            query.executeUpdate();
 
-    public void pay(Invoice invoice) throws SQLException {
-        Connection connection = JdbcConnector.GetConnection();
-        PreparedStatement payStatement = connection.prepareStatement(payQuery);
-        payStatement.setBoolean(1, true);
-        payStatement.setInt(2, invoice.getId());
-        payStatement.executeUpdate();
-        JdbcConnector.ReleaseConnection(connection);
-        invoice.setPaid(true);
+            tx.commit();
+            invoice.setPaid(true);
+        } catch (Exception e) {
+            if (Objects.nonNull(tx)) tx.rollback();
+            throw new DAOException(e.getMessage());
+        } finally {
+            releaseSession(session);
+        }
     }
 }

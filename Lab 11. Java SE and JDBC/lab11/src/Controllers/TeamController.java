@@ -87,6 +87,7 @@ public class TeamController {
 
         daoInvoice.cancelPayment(invoice.get());
         System.out.println("Invoice before paying: " + invoice.get());
+
         daoInvoice.pay(invoice.get());
         System.out.println("Invoice after paying: " + invoice.get());
     }

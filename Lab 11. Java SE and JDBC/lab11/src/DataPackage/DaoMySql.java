@@ -1,58 +1,48 @@
 package DataPackage;
 
-import Entities.Invoice;
-import Jdbc.JdbcConnectionException;
-import Jdbc.JdbcConnector;
+import org.hibernate.query.Query;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static Jdbc.HibernateConnectionPool.getSession;
+import static Jdbc.HibernateConnectionPool.releaseSession;
+
 public abstract class DaoMySql<T> {
 
     public DaoMySql() {
     }
 
-    protected abstract String getStatement();
+    protected abstract String getByIdNamedQuery();
 
-    protected abstract String getAllStatement();
-
-    public abstract Optional<T> convertFullSet(ResultSet resultSet) throws SQLException, DAOException;
+    protected abstract String getAllNamedQuery();
 
     public Optional<T> get(long id) throws DAOException {
+        org.hibernate.Session session = getSession();
         try {
-            Connection connection = JdbcConnector.GetConnection();
-            PreparedStatement statement = connection.prepareStatement(getStatement());
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            JdbcConnector.ReleaseConnection(connection);
-            if (resultSet.next()) {
-                return convertFullSet(resultSet);
-            }
-
-        } catch (SQLException e) {
-            throw new DAOException("Can't convert DAO query result to entity: " + e.getMessage());
+            Query query = session.getNamedQuery(getByIdNamedQuery());
+            query.setParameter("id", id);
+            return Optional.of((T) query.getSingleResult());
+        } catch (Exception e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            releaseSession(session);
         }
-        return Optional.empty();
     }
 
     public List<T> getAll() throws DAOException {
         List<T> entries = new ArrayList<>();
+        org.hibernate.Session session = getSession();
         try {
-            Connection connection = JdbcConnector.GetConnection();
-            PreparedStatement statement = connection.prepareStatement(getAllStatement());
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                convertFullSet(resultSet).ifPresent(entries::add);
-            }
-            JdbcConnector.ReleaseConnection(connection);
-        } catch (SQLException e) {
-            throw new DAOException("Can't convert DAO query result to entity: " + e.getMessage());
+            Query query = session.getNamedQuery(getAllNamedQuery());
+            return query.list();
+        } catch (Exception e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            releaseSession(session);
         }
-        return entries;
     }
 }

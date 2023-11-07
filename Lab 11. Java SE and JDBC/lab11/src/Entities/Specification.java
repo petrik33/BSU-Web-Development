@@ -1,7 +1,7 @@
 package Entities;
 
 import java.util.Vector;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Specification")
