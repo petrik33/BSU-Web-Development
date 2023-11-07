@@ -11,11 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import static Logger.LogManager.logException;
 
 public class DaoInvoice extends DaoMySql<Invoice> {
     private DaoProject daoProject;

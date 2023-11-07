@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import static Logger.LogManager.logException;
+import static Logger.JLogManager.logException;
 
 public class JdbcConnector {
     private static BlockingQueue<Connection> connectionPool;
@@ -18,6 +18,7 @@ public class JdbcConnector {
         try {
             initializePool();
         } catch (JdbcConnectionException e) {
+            logException(e);
             throw new RuntimeException(e);
         }
     }

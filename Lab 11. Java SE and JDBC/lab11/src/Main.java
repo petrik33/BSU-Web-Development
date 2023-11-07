@@ -4,7 +4,7 @@ import DataPackage.DAOException;
 
 import java.sql.SQLException;
 
-import static Logger.LogManager.logException;
+import static Logger.JLogManager.logException;
 
 public class Main {
 

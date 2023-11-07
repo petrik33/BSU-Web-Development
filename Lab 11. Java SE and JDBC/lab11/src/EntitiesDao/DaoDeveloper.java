@@ -6,7 +6,6 @@ import Entities.DevTeam;
 import Entities.Developer;
 import Entities.Project;
 import Entities.Qualification;
-import Jdbc.JdbcConnectionException;
 import Jdbc.JdbcConnector;
 
 import java.sql.Connection;
@@ -16,8 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static Logger.LogManager.logException;
 
 public class DaoDeveloper extends DaoMySql<Developer> {
     private DaoTeam daoTeam;

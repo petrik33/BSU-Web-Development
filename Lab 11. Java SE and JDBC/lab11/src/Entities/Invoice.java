@@ -1,13 +1,25 @@
 package Entities;
 
 import java.util.EnumMap;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Invoices")
+@NamedQueries({
+        @NamedQuery(name = "Invoice.selectById", query = "SELECT d FROM Invoice d WHERE d.id = :id"),
+        @NamedQuery(name = "Invoice.selectAll", query = "SELECT d FROM Invoice d"),
+        @NamedQuery(name = "Invoice.payQuery", query = "UPDATE Invoice i SET i.isPaid = :isPaid WHERE id = :id")
+})
 public class Invoice {
     public Invoice(Project project, Customer customer, Integer amount) {
         this.project = project;
         this.customer = customer;
         this.amount = amount;
         this.isPaid = false;
+    }
+
+    public Invoice() {
+
     }
 
     @Override
@@ -53,13 +65,24 @@ public class Invoice {
         return project;
     }
 
+    @OneToOne
+    @JoinColumn(name = "projectId")
     protected Project project;
+
+    @Column(name = "isPaid")
     protected boolean isPaid;
+
+    @OneToOne
+    @JoinColumn(name = "customerId")
     protected Customer customer;
+
+    @Column(name = "amount")
     protected Integer amount;
 
     // DATA ACCESS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     public Integer getId() {

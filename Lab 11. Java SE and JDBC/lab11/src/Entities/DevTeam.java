@@ -1,14 +1,23 @@
 package Entities;
 
-import Entities.Developer;
-
 import java.util.Vector;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Team")
+@NamedQueries({
+        @NamedQuery(name = "Team.selectById", query = "SELECT c FROM DevTeam c WHERE c.id = :id"),
+        @NamedQuery(name = "Team.selectAll", query = "SELECT c FROM DevTeam c")
+})
 public class DevTeam {
 
     public DevTeam(String name) {
         this.name = name;
         this.developers = new Vector<>();
+    }
+
+    public DevTeam() {
+
     }
 
     public String getName() {
@@ -35,12 +44,19 @@ public class DevTeam {
         this.developers.add(developer);
     }
 
+    @Column(name = "name", nullable = false)
     protected String name;
+
+    @Transient
     protected Vector<Developer> developers;
+
+    @Transient
     protected Manager manager;
 
     // DATA ACCESS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     public Integer getId() {

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="lab11" value="36e3a543-b850-421b-b467-a56f81b5038e" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -37,5 +49,8 @@
         <jarDirectory url="file://$MODULE_DIR$/../mysql-connector-j-8.0.33" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="apache.logging.log4j.core" level="project" />
+    <orderEntry type="library" name="apache.logging.log4j.1.2.api" level="project" />
+    <orderEntry type="library" name="hibernate.core" level="project" />
   </component>
 </module>
