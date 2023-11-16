@@ -1,5 +1,7 @@
 # Belarusian State University. Web Development
 
+GitHub Link: https://github.com/petrik33/BSU-Web-Development
+
 ## Overview
 
 The repository contains course assignments and projects for the course of web development.
