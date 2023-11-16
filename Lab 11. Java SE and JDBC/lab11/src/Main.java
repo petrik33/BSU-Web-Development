@@ -1,31 +1,63 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import Controllers.LogicException;
+import Controllers.TeamController;
+import DataPackage.DAOException;
+import Jdbc.JdbcConnectionException;
+import Jdbc.JdbcConnector;
+
+import java.sql.SQLException;
+
+import static Jdbc.JdbcConnector.closeFactory;
+import static Jdbc.JdbcConnector.initJdbcConnector;
+import static Logger.JLogManager.logException;
+
 public class Main {
+
     public static void main(String[] args) {
-        Customer man = new Customer(new String("Me"));
-        man.AddJob(new Job(Qualification.INTERN, 1));
-        man.AddJob(new Job(Qualification.SENIOR, 1));
+        try {
+            initJdbcConnector();
+        } catch (JdbcConnectionException | ClassNotFoundException e) {
+            logException(e);
+            closeFactory();
+            return;
+        }
 
-        Developer d1 = new Developer(new String("J1"), Qualification.INTERN, 10);
-        Developer d2 = new Developer(new String("J2"), Qualification.SENIOR, 30);
-        Developer d3 = new Developer(new String("J3"), Qualification.SENIOR, 50);
+        TeamController controller = new TeamController();
 
-        Manager sasha = new Manager(new String("Alexandr"), 33);
+        // Task 1
+        try {
+            controller.OutputCustomerProjects(1);
+        } catch (DAOException | SQLException | LogicException e) {
+            logException(e);
+        }
 
-        DevTeam teamTest = new DevTeam(new String("BSU"));
+        // Task 2
+        try {
+            controller.OutputProjectDevelopers(2);
+        } catch (DAOException | SQLException | LogicException e) {
+            logException(e);
+        }
 
-        sasha.JoinTeam(teamTest);
-        teamTest.AddDeveloper(d1);
-        teamTest.AddDeveloper(d2);
-        teamTest.AddDeveloper(d3);
+        // Task 3
+        try {
+            controller.OutputTeamDevelopers(1);
+        } catch (DAOException | SQLException | LogicException e) {
+            logException(e);
+        }
 
-        ProjectPlan plan = ProjectPlan
-                .Init(man, new String("New Project"), 500)
-                .Assign(sasha);
+        // Task 4, Part 1
+        try {
+            controller.AssignProjectToDeveloper(19, 2, 3);
+        } catch (DAOException | SQLException | LogicException e) {
+            logException(e);
+        }
 
-        Invoice invoice = plan.MakeInvoice();
-        Project project = plan.Start();
+        // Task 4, Part 2
+        try {
+            controller.PayInvoice(3);
+        } catch (DAOException | SQLException | LogicException e) {
+            logException(e);
+        }
 
-        int total = invoice.GetTotal();
+        closeFactory();
     }
 }
