@@ -5,11 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Invoices")
-@NamedQueries({
-        @NamedQuery(name = "Invoice.selectById", query = "SELECT d FROM Invoice d WHERE d.id = :id"),
-        @NamedQuery(name = "Invoice.selectAll", query = "SELECT d FROM Invoice d"),
-        @NamedQuery(name = "Invoice.payQuery", query = "UPDATE Invoice i SET i.isPaid = :isPaid WHERE id = :id")
-})
 public class Invoice {
     public Invoice(Project project, Customer customer, Integer amount) {
         this.project = project;

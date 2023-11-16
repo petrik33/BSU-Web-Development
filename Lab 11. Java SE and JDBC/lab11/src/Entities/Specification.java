@@ -5,10 +5,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Specification")
-@NamedQueries({
-        @NamedQuery(name = "Specification.selectById", query = "SELECT c FROM Specification c WHERE c.id = :id"),
-        @NamedQuery(name = "Specification.selectAll", query = "SELECT c FROM Specification c")
-})
 public class Specification {
     public Specification(Customer customer) {
         this.customer = customer;

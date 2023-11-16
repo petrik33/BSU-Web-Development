@@ -2,78 +2,87 @@ package EntitiesDao;
 
 import DataPackage.DAOException;
 import DataPackage.DaoMySql;
-import Entities.DevTeam;
-import Entities.Developer;
-import Entities.Project;
-import org.hibernate.query.Query;
+import Entities.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 import java.util.Objects;
 
-import static Jdbc.HibernateConnectionPool.getSession;
-import static Jdbc.HibernateConnectionPool.releaseSession;
+import static Jdbc.JdbcConnector.getEntityManager;
+import static Jdbc.JdbcConnector.releaseEntityManager;
 
 public class DaoDeveloper extends DaoMySql<Developer> {
 
-    @Override
-    protected String getByIdNamedQuery() {
-        return "Developer.selectById";
-    }
-
-    @Override
-    protected String getAllNamedQuery() {
-        return "Developer.selectAll";
+    public DaoDeveloper() {
+        super(Developer.class);
     }
 
     public List<Developer> getDevelopersByTeam(DevTeam team) throws DAOException {
-        List<Developer> developers;
-        var session = getSession();
+        EntityManager em = null;
         try {
-            String byTeamQuery = "Developer.selectByTeam";
-            Query query = session.getNamedQuery(byTeamQuery);
-            query.setParameter("teamId", team.getId());
-            developers = query.list();
+            em = getEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Developer> cq = cb.createQuery(Developer.class);
+            Root<Developer> root = cq.from(Developer.class);
+
+            cq.where(cb.equal(root.get(Developer_.team).get(DevTeam_.id), team.getId()));
+
+            TypedQuery<Developer> query = em.createQuery(cq);
+            return query.getResultList();
         } catch (Exception e) {
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
-        return developers;
     }
 
     public List<Developer> getDevelopersByProject(Project project) throws DAOException {
-        List<Developer> developers;
-        var session = getSession();
+        EntityManager em = null;
         try {
-            String byProjectQuery = "Developer.selectByProject";
-            Query query = session.getNamedQuery(byProjectQuery);
-            query.setParameter("projectId", project.getId());
-            developers = query.list();
+            em = getEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Developer> cq = cb.createQuery(Developer.class);
+            Root<Developer> root = cq.from(Developer.class);
+
+            cq.where(cb.equal(root.get(Developer_.currentProject).get(Project_.id), project.getId()));
+
+            TypedQuery<Developer> query = em.createQuery(cq);
+            return query.getResultList();
         } catch (Exception e) {
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
-        return developers;
     }
 
     public void assignProjectToDeveloper(Developer developer, Project project) throws DAOException {
-        var session = getSession();
-        var tx = session.beginTransaction();
+        EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            String assignProjectQuery = "Developer.assignProject";
-            Query query = session.getNamedQuery(assignProjectQuery);
-            query.setParameter("projectId", project.getId());
-            query.setParameter("developerId", developer.getId());
-            query.executeUpdate();
+            em = getEntityManager();
+            tx = em.getTransaction();
+
+            tx.begin();
+
+            Developer managedDeveloper = em.find(Developer.class, developer.getId());
+            Project managedProject = em.find(Project.class, project.getId());
+
+            if (managedDeveloper != null && managedProject != null) {
+                managedDeveloper.setCurrentProject(managedProject);
+                em.merge(managedDeveloper);
+            }
 
             tx.commit();
-            developer.setCurrentProject(project);
         } catch (Exception e) {
             if (Objects.nonNull(tx)) tx.rollback();
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
     }
 }

@@ -2,61 +2,62 @@ package EntitiesDao;
 import DataPackage.DAOException;
 import DataPackage.DaoMySql;
 import Entities.Invoice;
-import org.hibernate.query.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.Objects;
 
-import static Jdbc.HibernateConnectionPool.getSession;
-import static Jdbc.HibernateConnectionPool.releaseSession;
+import static Jdbc.JdbcConnector.getEntityManager;
+import static Jdbc.JdbcConnector.releaseEntityManager;
 
 public class DaoInvoice extends DaoMySql<Invoice> {
-    private String payQuery = "Invoice.payQuery";
-
-    @Override
-    protected String getByIdNamedQuery() {
-        return "Invoice.selectById";
-    }
-
-    @Override
-    protected String getAllNamedQuery() {
-        return "Invoice.selectAll";
+    public DaoInvoice() {
+        super(Invoice.class);
     }
 
     public void cancelPayment(Invoice invoice) throws DAOException {
-        var session = getSession();
-        var tx = session.beginTransaction();
+        EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            Query query = session.getNamedQuery(payQuery);
-            query.setParameter("isPaid", false);
-            query.setParameter("id", invoice.getId());
-            query.executeUpdate();
+            em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
+            Invoice managedInvoice = em.find(Invoice.class, invoice.getId());
+            if (managedInvoice != null) {
+                managedInvoice.setPaid(false);
+                em.merge(managedInvoice);
+            }
 
             tx.commit();
-            invoice.setPaid(false);
         } catch (Exception e) {
             if (Objects.nonNull(tx)) tx.rollback();
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
     }
 
     public void pay(Invoice invoice) throws DAOException {
-        var session = getSession();
-        var tx = session.beginTransaction();
+        EntityManager em = null;
+        EntityTransaction tx = null;
         try {
-            Query query = session.getNamedQuery(payQuery);
-            query.setParameter("isPaid", true);
-            query.setParameter("id", invoice.getId());
-            query.executeUpdate();
+            em = getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+
+            Invoice managedInvoice = em.find(Invoice.class, invoice.getId());
+            if (managedInvoice != null) {
+                managedInvoice.setPaid(true);
+                em.merge(managedInvoice);
+            }
 
             tx.commit();
-            invoice.setPaid(true);
         } catch (Exception e) {
             if (Objects.nonNull(tx)) tx.rollback();
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
     }
 }

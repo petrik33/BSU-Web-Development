@@ -4,13 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Developer")
-@NamedQueries({
-        @NamedQuery(name = "Developer.selectById", query = "SELECT d FROM Developer d WHERE d.id = :id"),
-        @NamedQuery(name = "Developer.selectAll", query = "SELECT d FROM Developer d"),
-        @NamedQuery(name = "Developer.selectByTeam", query = "SELECT d FROM Developer d WHERE d.team.id = :teamId"),
-        @NamedQuery(name = "Developer.selectByProject", query = "SELECT d FROM Developer d WHERE d.currentProject.id = :projectId"),
-        @NamedQuery(name = "Developer.assignProject", query = "UPDATE Developer d SET d.currentProject.id = :projectId WHERE d.id = :developerId")
-})
 public class Developer {
     public Developer (String name, Qualification qualification, int payRate, DevTeam team) {
         this.name = name;

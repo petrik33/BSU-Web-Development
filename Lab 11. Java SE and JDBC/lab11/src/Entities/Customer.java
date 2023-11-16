@@ -5,10 +5,6 @@ import java.util.Vector;
 
 @Entity
 @Table(name = "Customer")
-@NamedQueries({
-        @NamedQuery(name = "Customer.selectById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
-        @NamedQuery(name = "Customer.selectAll", query = "SELECT c FROM Customer c")
-})
 public class Customer {
 
     public Customer(String name) {

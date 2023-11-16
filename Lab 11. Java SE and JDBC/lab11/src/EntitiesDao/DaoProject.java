@@ -2,41 +2,43 @@ package EntitiesDao;
 
 import DataPackage.DAOException;
 import DataPackage.DaoMySql;
-import Entities.Customer;
-import Entities.Project;
-import org.hibernate.query.Query;
+import Entities.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
-import static Jdbc.HibernateConnectionPool.getSession;
-import static Jdbc.HibernateConnectionPool.releaseSession;
+import static Jdbc.JdbcConnector.getEntityManager;
+import static Jdbc.JdbcConnector.releaseEntityManager;
 
 
 public class DaoProject extends DaoMySql<Project> {
 
-    @Override
-    protected String getByIdNamedQuery() {
-        return "Project.selectById";
-    }
-
-    @Override
-    protected String getAllNamedQuery() {
-        return "Project.selectAll";
+    public DaoProject() {
+        super(Project.class);
     }
 
     public List<Project> getProjectsForCustomer(Customer customer) throws DAOException {
-        List<Project> projects;
-        var session = getSession();
+        EntityManager em = null;
         try {
-            String byCustomerStatement = "Project.byCustomerStatement";
-            Query query = session.getNamedQuery(byCustomerStatement);
-            query.setParameter("customerId", customer.getId());
-            projects = query.list();
+            em = getEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Project> cq = cb.createQuery(Project.class);
+            Root<Project> root = cq.from(Project.class);
+            Join<Project, Specification> specificationJoin = root.join(Project_.specification);
+
+            cq.where(cb.equal(specificationJoin.get(Specification_.customer).get(Customer_.id), customer.getId()));
+
+            TypedQuery<Project> query = em.createQuery(cq);
+            return query.getResultList();
         } catch (Exception e) {
             throw new DAOException(e.getMessage());
         } finally {
-            releaseSession(session);
+            releaseEntityManager(em);
         }
-        return projects;
     }
 }
