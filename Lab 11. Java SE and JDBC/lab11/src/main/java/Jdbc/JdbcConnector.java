@@ -10,6 +10,17 @@ import java.util.concurrent.BlockingQueue;
 import static Logger.JLogManager.logException;
 
 public class JdbcConnector {
+
+    static {
+        try {
+            initJdbcConnector();
+        } catch (JdbcConnectionException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static BlockingQueue<EntityManager> entityManagerPool;
     private static final int INITIAL_POOL_SIZE = 20;
     private static EntityManagerFactory entityManagerFactory;
