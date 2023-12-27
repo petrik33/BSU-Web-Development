@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/devs")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class DeveloperRestController {
   DeveloperRepository developerRepository;
 

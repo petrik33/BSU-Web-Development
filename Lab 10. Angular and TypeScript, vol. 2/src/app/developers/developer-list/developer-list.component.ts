@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Developer, DevelopersService } from '../service/developers.service';
-import { Observable, from, of } from 'rxjs';
+import {Component} from '@angular/core';
+import {DevelopersService, IDeveloper} from '../service/developers.service';
 
 @Component({
   selector: 'app-developer-list',
   templateUrl: './developer-list.component.html',
   styleUrls: ['./developer-list.component.css']
 })
-export class DeveloperListComponent implements OnInit {
-  developers$: Observable<Developer[]> = of([]);
+export class DeveloperListComponent {
+  developers: IDeveloper[] = []
 
-  constructor(private service: DevelopersService) { }
+  constructor(private service: DevelopersService) {
+  }
 
   ngOnInit() {
-    this.developers$ = from(this.service.getDevelopers());
+    this.service.getDevelopers().subscribe(data => {
+      this.developers = data;
+    });
   }
 }

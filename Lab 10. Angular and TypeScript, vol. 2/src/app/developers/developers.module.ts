@@ -6,14 +6,14 @@ import { DeveloperDetailsComponent } from './developer-details/developer-details
 import { DeveloperCenterComponent } from './developer-center/developer-center.component';
 import { DevelopersRoutingModule } from './developers-routing.module';
 import { DeveloperFormComponent } from './developer-form/developer-form.component';
-import { provideFirestore } from '@angular/fire/firestore';
-import { getFirestore } from 'firebase/firestore';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     DevelopersRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   declarations: [
     DeveloperListComponent,

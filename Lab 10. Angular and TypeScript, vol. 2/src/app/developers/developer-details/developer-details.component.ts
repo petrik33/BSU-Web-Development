@@ -1,50 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { Developer, DevelopersService } from '../service/developers.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import {Component} from '@angular/core';
+import {DevelopersService, IDeveloper} from '../service/developers.service';
+import {ActivatedRoute, Router} from '@angular/router';
+
 @Component({
   selector: 'app-developer-details',
   templateUrl: './developer-details.component.html',
   styleUrls: ['./developer-details.component.css']
 })
-export class DeveloperDetailsComponent implements OnInit {
-  developer: Developer | null = null;
+export class DeveloperDetailsComponent {
+  developer: IDeveloper | null = null;
 
-  constructor(public service: DevelopersService, private route: ActivatedRoute, private router : Router) { }
+  constructor(private service: DevelopersService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap((value: ParamMap) => {
-        const id = value.get('id');
-
-        if (id) {
-          const developer$ = from(this.service.getDeveloper(id));
-          return developer$
-        }
-
-        return of(null);
-      })
-    ).subscribe((developer) => {
-      this.developer = developer
-    });
-  }
-
-  async onDeleteDeveloper() {
-    if (this.developer == null) {
+    const id = this.route.snapshot.paramMap.get('id')
+    if (!id) {
       return;
+    } else {
+      this.service.getDeveloper(id).subscribe(developerData => {
+        console.log(developerData);
+        this.developer = developerData;
+      }, error => {
+        console.error(error);
+        this.router.navigate(['/']);
+      });
     }
-
-    await this.service.deleteDeveloper(this.developer.id);
-    this.router.navigate(['../../'], { relativeTo: this.route });
   }
 
-  async onNextDeveloper() {
+  onDeleteDeveloper() {
     if (!this.developer) {
       return
     }
-
-    const next = await this.service.getNextDeveloper(this.developer.id);
-    this.router.navigate(['../', next?.id], { relativeTo: this.route });
+    this.service.deleteDeveloper(this.developer.id)
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 }
