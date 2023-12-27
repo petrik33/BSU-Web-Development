@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Development Team</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <meta name="description" content="Система управления проектами для команды разработчиков">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #555;
+        }
+
+        header {
+            background-color: #2196F3;
+            color: white;
+            padding: 18px 0;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #2196F3;
+            color: white;
+            padding: 18px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 5px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 8px;
+            padding: 6px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            width: 82%;
+        }
+
+        button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0d47a1;
+        }
+
+        section {
+            padding: 16px;
+            margin: 16px;
+        }
+
+        h2 {
+            color: #2196F3;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Project Management and Development</h1>
+</header>
+<section>
+    <h2>About the Project System</h2>
+    <p>Our platform "Advanced Technology Development" is designed for managing projects in the field of information technology. The system enables customers to create projects with detailed descriptions of tasks and required resources, while managers analyze and allocate them among teams of developers. The main functionality includes project formation, team assignment, and resource control.</p>
+    <p>The platform features the ability to search and filter developer teams, providing flexible personnel management. It also provides tools to view project information for specific customers, team members of developers, and details about developers working on a particular project. Additional functions involve managing developer assignments to projects and controlling invoice payments.</p>
+</section>
+<ul>
+    <li>
+        <form action="projects/all" method="get">
+            <button type="submit">All Projects</button>
+        </form>
+    </li>
+    <li>
+        <form action="developers/all" method="get">
+            <button type="submit">All Developers</button>
+        </form>
+    </li>
+    <li>
+        <form action="developers/byTeam" method="get">
+            <input type="text" name="teamId" placeholder="Enter Team ID" required>
+            <button type="submit">Developers</button>
+        </form>
+    </li>
+    <li>
+        <form action="developers/byProject" method="get">
+            <input type="text" name="projectId" placeholder="Enter Project ID" required>
+            <button type="submit">Developers</button>
+        </form>
+    </li>
+</ul>
+<footer>
+    <h2>Petrykevich Tsimafei</h2>
+</footer>
+</body>
+</html>

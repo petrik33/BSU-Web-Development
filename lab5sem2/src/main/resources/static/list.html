@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DeveloperSystem</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f4f4f4;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+<!--        h1 {-->
+<!--            background-color: #4CAF50;-->
+<!--            color: white;-->
+<!--            text-align: center;-->
+<!--            padding: 10px 0;-->
+<!--        }-->
+<!--        table {-->
+<!--            width: 80%;-->
+<!--            margin-left: auto;-->
+<!--            margin-right: auto;-->
+<!--            border-collapse: collapse;-->
+<!--        }-->
+<!--        th, td {-->
+<!--            border: 1px solid #ddd;-->
+<!--            padding: 8px;-->
+<!--            text-align: left;-->
+<!--        }-->
+<!--        tr:nth-child(even) {-->
+<!--            background-color: #f2f2f2;-->
+<!--        }-->
+<!--        tr:hover {-->
+<!--            background-color: #ddd;-->
+<!--        }-->
+<!--        th {-->
+<!--            background-color: #4CAF50;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        a {-->
+<!--            display: block;-->
+<!--            width: fit-content;-->
+<!--            margin: 20px auto;-->
+<!--            padding: 10px 20px;-->
+<!--            background-color: #4CAF50;-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+<body>
+
+<h1>Developer List</h1>
+
+<table>
+    <tr>
+        <th>Developer First Name</th>
+        <th>Developer Last Name</th>
+        <th>Project ID</th>
+        <th>Pay Rate</th>
+    </tr>
+    <tr th:each="s : ${developers}">
+        <td th:text="${s.getId()}">ID Placeholder</td>
+        <td th:text="${s.getName()}">Name Placeholder</td>
+        <td th:text="${s.getCurrentProject().getId()}">Project ID Placeholder</td>
+        <td th:text="${s.getPayRate()}">Pay Rate Placeholder</td>
+    </tr>
+</table>
+
+<p>
+    <a href="../home" th:href="@{/}">Return to Home</a>
+</p>
+
+</body>
+</html>
